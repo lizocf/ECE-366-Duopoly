@@ -1,3 +1,3 @@
-# lzl-ece-366
+# Duopoly
 
-ECE-366: Software Eng Class Notes :>
+ECE-366: Software Eng. Project
