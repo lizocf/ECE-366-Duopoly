@@ -5,5 +5,6 @@ CREATE TABLE player_in_game (
     cash int NOT NULL,
     current_direction varchar(10) NOT NULL,
     PRIMARY KEY (game_id, user_id),
-    FOREIGN KEY (game_id) REFERENCES game_meta(game_id) ON DELETE CASCADE
+    FOREIGN KEY (game_id) REFERENCES game_meta(game_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES accounts(user_id) ON DELETE CASCADE
 );

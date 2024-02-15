@@ -7,4 +7,5 @@ CREATE TABLE game_meta (
     num_players INT,
     num_turns INT, -- ????
     PRIMARY KEY (game_id),
+    FOREIGN KEY (which_player_turn) REFERENCES accounts(user_id)
 );

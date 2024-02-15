@@ -13,10 +13,10 @@ services:
     ports:
       - 5432:5432
     restart: always
-  app:
-    build: .
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_PASSWORD=password
-    depends_on:
-      - db
+  # app:
+  #   build: .
+  #   environment:
+  #     - POSTGRES_DB=postgres
+  #     - POSTGRES_PASSWORD=password
+  #   depends_on:
+  #     - db
