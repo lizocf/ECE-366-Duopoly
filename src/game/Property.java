@@ -1,22 +1,42 @@
 package game;
 
-class Property extends Space {
-    int rent;
-    int price;
+import java.util.Scanner;
 
-    boolean purchased;
-    
+class Property extends Space {
+    public int baseCost,buildCost,baseRent,buildRent;
+    public boolean purchased;
+
+    public Property(int costPrice, int buildingCostPrice, int rentPrice, int hotelRentPrice)
+    {
+        baseCost = costPrice;
+        buildCost = buildingCostPrice;
+        baseRent = rentPrice;
+        buildRent = hotelRentPrice;
+    }
+
     @Override
-    void isOccupied(boolean occupied) {
+    void isOccupied(boolean occupied, String user)
+    {
         if (occupied & !purchased)
         {
-            //ask user if they want to purschase
+            //ask user if they want to purchase
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Would you like to purchase[Yes/No]: ");
+            String s = scanner.nextLine();
+
+            if (s.equals("Yes"))
+            {
+                // update database (user has purchased a valid property)
+            }
         }
 
-        if(occupied & purchased)
+        if (occupied & purchased)
         {
-            //take money from the user.
+            // update database (user has lost money)
         }
-
     }
 }
+
+//Logic to determine if they have set?
+//Determine if houses are built or not and how many
+
