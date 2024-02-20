@@ -2,7 +2,6 @@ package game;
 
 
 import java.util.Scanner;
-
 class Special extends Space
 {
     public String spaceName;
