@@ -11,3 +11,14 @@ VALUES (1, 1, FALSE, 2000, 'RIGHT'), -- spiceless
 VALUES (1, 2, FALSE, 2000, 'RIGHT'), -- mudkip
 VALUES (1, 2, FALSE, 2000, 'LEFT');  -- esaya
 
+-- host starts game
+UPDATE game_meta 
+SET joinable = FALSE, 
+    num_players = 3  -- automate this
+WHERE game_id = 1; -- automate this
+
+-- begin game
+-- spice's turn
+UPDATE player_in_game
+SET current_direction = 'LEFT'
+WHERE user_id = 1

@@ -6,6 +6,7 @@ CREATE TABLE game_meta (
     date_time_start datetime DEFAULT getdate(),
     num_players int DEFAULT 0,
     num_turns int DEFAULT 0, -- ????
+    debt_pot int DEFAULT 0,
     PRIMARY KEY (game_id),
     FOREIGN KEY (which_player_turn) REFERENCES accounts(user_id)
 );
