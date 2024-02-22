@@ -2,7 +2,7 @@ package game;
 
 
 import java.util.Scanner;
-class Special extends Space
+class Special implements Space
 {
     public String spaceName;
     public Special(String name) { spaceName = name; }
@@ -50,7 +50,7 @@ class Special extends Space
     }
 
     @Override
-    void isOccupied(boolean occupied, String user)
+    public void isOccupied(boolean occupied, String user)
     {
         //Switch case that executes member functions
         switch (spaceName)

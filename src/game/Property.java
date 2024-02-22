@@ -2,7 +2,7 @@ package game;
 
 import java.util.Scanner;
 
-class Property extends Space {
+class Property implements Space {
     public int baseCost,buildCost,baseRent,buildRent;
     public boolean purchased;
 
@@ -15,7 +15,7 @@ class Property extends Space {
     }
 
     @Override
-    void isOccupied(boolean occupied, String user)
+    public void isOccupied(boolean occupied, String user)
     {
         if (occupied & !purchased)
         {
