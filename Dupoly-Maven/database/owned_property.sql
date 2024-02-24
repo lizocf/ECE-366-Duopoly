@@ -8,7 +8,7 @@ CREATE TABLE owned_property (
     FOREIGN KEY (property_name) REFERENCES all_property(property_name),
     FOREIGN KEY (set_name) REFERENCES all_property(set_name),
     FOREIGN KEY (game_id) REFERENCES game_meta(game_id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES accounts(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES accounts(user_id) ON DELETE CASCADE
 );
 
 -- INSERT INTO all_property (property_name) VALUES ('nyc') ... need to add this --
