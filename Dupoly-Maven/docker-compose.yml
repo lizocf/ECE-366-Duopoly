@@ -3,7 +3,7 @@ services:
     image: postgres
     volumes:
       - $HOME/srv/postgres:/var/lib/postgresql/data
-      - ./Dupoly-Maven/database:/database
+      - ./database:/database
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=password

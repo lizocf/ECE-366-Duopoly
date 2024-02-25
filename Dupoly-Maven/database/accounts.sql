@@ -8,3 +8,5 @@ CREATE TABLE accounts (
     PRIMARY KEY (user_id),
     FOREIGN KEY (elo_rating) REFERENCES elo(rank)
 );
+
+-- password
