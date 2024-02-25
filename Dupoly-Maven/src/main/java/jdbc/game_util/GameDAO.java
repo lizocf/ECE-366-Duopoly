@@ -88,38 +88,3 @@ public class GameDAO extends DataAccessObject<GameUtil>
     }
 }
 
-
-@Override
-public Player create(Player dto) {
-    try(PreparedStatement statement = this.connection.prepareStatement(INSERT);) {
-        // counts from 1!!
-        statement.setString(1, dto.getUserName());
-        statement.setString(2, dto.getPassword());
-        statement.execute();
-        int id = this.getLastVal(PLAYER_SEQUENCE);
-        return this.findById(id);
-    } catch(SQLException e) {
-        e.printStackTrace();
-        throw new RuntimeException(e);
-    }
-}
-
-@Override
-public Player findById(long id) {
-    Player player = new Player();
-    try(PreparedStatement statement = this.connection.prepareStatement(GET_ONE);)
-
-    {
-        statement.setLong(1, id);
-        ResultSet rs = statement.executeQuery();
-        while(rs.next()) {
-            player.setPlayerId(rs.getLong("player_id"));
-            player.setUserName(rs.getString("user_name"));
-            player.setPassword(rs.getString("password"));
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        throw new RuntimeException(e);
-    }
-    return player;
-}
