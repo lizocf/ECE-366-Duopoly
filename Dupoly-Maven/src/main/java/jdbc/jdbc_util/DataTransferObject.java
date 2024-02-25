@@ -1,6 +1,6 @@
-package jdbc.util;
+package jdbc.jdbc_util;
 
 public interface DataTransferObject
 {
-    long getId();
+    int getId();
 }

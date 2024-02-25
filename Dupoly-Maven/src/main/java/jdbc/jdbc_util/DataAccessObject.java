@@ -1,7 +1,6 @@
-package jdbc.util;
+package jdbc.jdbc_util;
 
 import java.sql.*;
-import java.util.List;
 
 public abstract class DataAccessObject <T extends DataTransferObject>
 {
@@ -14,6 +13,15 @@ public abstract class DataAccessObject <T extends DataTransferObject>
         this.connection = connection;
     }
 
-    public abstract T findById(long id);
+    public abstract T findById(int id);
+
+    public abstract T createInstance(T dto);
+
+    public abstract T update(T dto);
+
+    public abstract T delete(T dto);
+
+
+
 
 }
