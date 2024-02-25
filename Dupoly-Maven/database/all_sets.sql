@@ -5,5 +5,5 @@ CREATE TABLE all_sets (
 
 INSERT INTO all_sets (set_name) VALUES
 ('New York'), ('Florida'), ('Massachusetts'), ('Michigan'), ('Ohio'), ('Vermont'),
-('Cali'), ('Nevada'), ('Texas'), ('Oregon'), ('Washington'), ('New Mexico'),
+('California'), ('Nevada'), ('Texas'), ('Oregon'), ('Washington'), ('New Mexico'),
 ('Airports');

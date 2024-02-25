@@ -2,7 +2,7 @@ CREATE TABLE player_in_game (
     game_id int NOT NULL,
     user_id int NOT NULL,
     afk BOOLEAN DEFAULT FALSE,
-    cash int NOT NULL,
+    cash int DEFAULT 2000,
     current_direction varchar(10) DEFAULT NULL,
     current_position int DEFAULT 0,
     PRIMARY KEY (game_id, user_id),
