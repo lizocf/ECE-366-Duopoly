@@ -7,9 +7,10 @@ public class GameUtil implements DataTransferObject
     private int gameId;
 
     private String gameCode;
-    int playerTurn;
-    int debtPot;
-    int numOfPlayers;
+    private int playerTurn;
+    private int debtPot;
+    private int numOfPlayers;
+    private boolean joinable;
 
     public int getId() {
         return gameId;
@@ -53,6 +54,14 @@ public class GameUtil implements DataTransferObject
 
     public void setNumOfPlayers(int numOfPlayers) {
         this.numOfPlayers = numOfPlayers;
+    }
+
+    public boolean isJoinable() {
+        return joinable;
+    }
+
+    public void setJoinable(boolean joinable) {
+        this.joinable = joinable;
     }
 
     @Override
