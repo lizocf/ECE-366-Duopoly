@@ -13,10 +13,18 @@ services:
     ports:
       - 5432:5432
     restart: always
+  # this has not been started yet, need jdbc Dockerfile to build !!!
   # app:
   #   build: .
   #   environment:
   #     - POSTGRES_DB=postgres
   #     - POSTGRES_PASSWORD=password
+  #     - POSTGRES_USER=lil-postgres
+  #   expose:
+  #     - 8080:8080
+  #   ports:
+  #     - 8080:8080
   #   depends_on:
   #     - db
+
+  #  psql -h localhost -U postgres -d test -f database/create.sh 
