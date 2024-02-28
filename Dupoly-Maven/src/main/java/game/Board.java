@@ -39,15 +39,80 @@ public class Board {
         gameBoard[40] = new Special("Eviction");
         gameBoard[50] = new Special("Jail");
 
-        gameBoard[1] = new Special("Start");
-        gameBoard[2] = new Special("Debt");
-        gameBoard[3] = new Special("Vacation");
-        gameBoard[4] = new Special("Reverse");
-        gameBoard[5] = new Special("Eviction");
-        gameBoard[6] = new Special("Jail");
-        gameBoard[7] = new Special("Start");
-        gameBoard[8] = new Special("Debt");
-        gameBoard[9] = new Special("Vacation");
+        gameBoard[1] = new Property(100,100,100,100); //need to input property name
+        gameBoard[2] = new SpecialCard(); // might need a speicial Card NAme. Also We should have the hashmaps be here not in the classes themselves. Then we pass in the map. IDK
+        gameBoard[3] = new Property(100,100,100,100);
+        gameBoard[4] = new Property(100,100,100,100);
+        gameBoard[5] = new Property(100,100,100,100);
+        gameBoard[6] = new Property(100,100,100,100);
+        gameBoard[7] = new Property(100,100,100,100);
+        gameBoard[8] = new SkullCard();
+        gameBoard[9] = new Property(100,100,100,100);
+
+        gameBoard[11] = new Property(100,100,100,100); //need to input property name
+        gameBoard[12] = new Property(100,100,100,100); // might need a speicial Card NAme. Also We should have the hashmaps be here not in the classes themselves. Then we pass in the map. IDK
+        gameBoard[13] = new Property(100,100,100,100);
+        gameBoard[14] = new Property(100,100,100,100);
+        gameBoard[15] = new Property(100,100,100,100);
+        gameBoard[16] = new SpecialCard();
+        gameBoard[17] = new Property(100,100,100,100);
+        gameBoard[18] = new SkullCard();
+        gameBoard[19] = new Property(100,100,100,100);
+
+        gameBoard[21] = new Property(100,100,100,100); //need to input property name
+        gameBoard[22] = new Property(100,100,100,100); // might need a speicial Card NAme. Also We should have the hashmaps be here not in the classes themselves. Then we pass in the map. IDK
+        gameBoard[23] = new Property(100,100,100,100);
+        gameBoard[24] = new Property(100,100,100,100);
+        gameBoard[25] = new Property(100,100,100,100);
+        gameBoard[26] = new SpecialCard();
+        gameBoard[27] = new Property(100,100,100,100);
+        gameBoard[28] = new SkullCard();
+        gameBoard[29] = new Property(100,100,100,100);
+
+        gameBoard[31] = new Property(100,100,100,100);
+        gameBoard[32] = new SpecialCard(); // might need
+        gameBoard[33] = new Property(100,100,100,100);
+        gameBoard[34] = new Property(100,100,100,100);
+        gameBoard[35] = new Property(100,100,100,100);
+        gameBoard[36] = new Property(100,100,100,100);
+        gameBoard[37] = new Property(100,100,100,100);
+        gameBoard[38] = new Property(100,100,100,100);
+        gameBoard[39] = new Property(100,100,100,100);
+
+        gameBoard[41] = new Property(100,100,100,100);
+        gameBoard[42] = new Property(100,100,100,100);
+        gameBoard[43] = new Property(100,100,100,100);
+        gameBoard[44] = new SkullCard();
+        gameBoard[45] = new Property(100,100,100,100);
+        gameBoard[46] = new Property(100,100,100,100);
+        gameBoard[47] = new Property(100,100,100,100);
+        gameBoard[48] = new Property(100,100,100,100);
+        gameBoard[49] = new Property(100,100,100,100);
+
+        gameBoard[51] = new Property(100,100,100,100); //need to input property name
+        gameBoard[52] = new SpecialCard();
+        gameBoard[53] = new Property(100,100,100,100);
+        gameBoard[54] = new Property(100,100,100,100);
+        gameBoard[55] = new Property(100,100,100,100);
+        gameBoard[56] = new Property(100,100,100,100);
+        gameBoard[57] = new Property(100,100,100,100);
+        gameBoard[58] = new SkullCard();
+        gameBoard[59] = new Property(100,100,100,100);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
