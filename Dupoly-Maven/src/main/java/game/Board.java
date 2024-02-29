@@ -6,7 +6,7 @@ public class Board {
     // insert stuff here
 
     // 59 spaces
-    private Space[] gameBoard;
+    public Space[] gameBoard;
 
     public Board()
     {
@@ -100,6 +100,7 @@ public class Board {
         gameBoard[59] = new Property(100,100,100,100);
 
     }
+
     private int doublesCounter = 0;
     // should be reset at the end of every player's turn
 

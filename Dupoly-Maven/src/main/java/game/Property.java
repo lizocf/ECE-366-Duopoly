@@ -27,7 +27,7 @@ class Property implements Space {
 
     public void setPropertyDAO(Connection connection) {
 
-        propertyDAO = new OwnedPropertyDAO(connection); 
+        propertyDAO = new OwnedPropertyDAO(connection);
     }
 
     // need to pass in the gameId.
@@ -47,7 +47,6 @@ class Property implements Space {
 
             if (s.equals("Yes"))
             {
-
                 // update database (user has purchased a valid property)
                 System.out.print("Property Purchased");
                 property = new OwnedPropertyUtil();
@@ -62,6 +61,7 @@ class Property implements Space {
             }
         }
 
+
         if (occupied & purchased)
         {
             // update database (user has lost money)
@@ -72,14 +72,12 @@ class Property implements Space {
             PlayerDAO playerDAO = new PlayerDAO(connection);
             PlayerUtil player = playerDAO.findById(0);
             // these need to be actual values
-            playerDAO.updateCash(player,100,1); // we need to return a player I guess.
+            playerDAO.updateCash(player,baseCost,1); // we need to return a player I guess.
 
             // how do I link the util to the other things?
 
             // we pass this into a player update cash function? whcih leads us to
 
-
-            //
 
         }
 
