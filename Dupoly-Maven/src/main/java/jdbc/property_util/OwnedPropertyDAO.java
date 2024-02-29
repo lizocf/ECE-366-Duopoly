@@ -76,8 +76,9 @@ public class OwnedPropertyDAO extends DataAccessObject<OwnedPropertyUtil>
 
 
     // what else would we have to update besides num of hotels. Maybe the owner?
+    // do we need to return anything
     @Override
-    public OwnedPropertyUtil update(OwnedPropertyUtil dto) {
+    public void update(OwnedPropertyUtil dto) {
         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE);)
         {
             statement.setString(1,"");
@@ -89,10 +90,11 @@ public class OwnedPropertyDAO extends DataAccessObject<OwnedPropertyUtil>
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+
     }
 
 
-    public OwnedPropertyUtil updateNumHotel(OwnedPropertyUtil dto) {
+    public void updateNumHotel(OwnedPropertyUtil dto) {
         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE);)
         {
             statement.setString(1,"num_hotels");
@@ -108,8 +110,8 @@ public class OwnedPropertyDAO extends DataAccessObject<OwnedPropertyUtil>
     }
 
     @Override
-    public OwnedPropertyUtil delete(OwnedPropertyUtil dto) {
-        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE);)
+    public void delete(OwnedPropertyUtil dto) {
+        try(PreparedStatement statement = this.connection.prepareStatement(DELETE);)
         {
             statement.setInt(1,dto.getGameId());
             statement.setString(2,dto.getPropertyName()); // can I get the current value then just add 50?

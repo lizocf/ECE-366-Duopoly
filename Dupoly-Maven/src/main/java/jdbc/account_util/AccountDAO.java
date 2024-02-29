@@ -52,13 +52,18 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
     }
 
     @Override
-    public AccountUtil update(AccountUtil dto) {
-        return null;
+    public void update(AccountUtil dto)
+    {
+        if (true)
+        {
+
+        }
+
     }
 
     @Override
-    public AccountUtil delete(AccountUtil dto) {
-        return null;
+    public void  delete(AccountUtil dto) {
+
     }
 }
 

@@ -15,6 +15,16 @@ public class OwnedPropertyUtil implements DataTransferObject
     private String propertyName;
     private int numOfHotels;
 
+    public int debtPot;
+
+    public int getDebtPot() {
+        return debtPot;
+    }
+
+    public void setDebtPot(int debtPot) {
+        this.debtPot = debtPot;
+    }
+
     public int getGameId() {
         return gameId;
     }

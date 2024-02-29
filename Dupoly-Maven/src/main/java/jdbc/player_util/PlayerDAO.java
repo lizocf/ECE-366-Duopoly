@@ -20,6 +20,7 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil> {
 
     private static final String UPDATE = "UPDATE player_in_game " + "SET ? = ? " + "WHERE  game_id = ? AND user_id = ?";
 
+
     private static final String DELETE = "DELETE FROM player_in_game " + " WHERE (game_id, user_id) = (?,?)";
 
     // Same conceptual issue as OwnedPropertyDao's findById
@@ -51,16 +52,53 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil> {
 
     @Override
     public PlayerUtil createInstance(PlayerUtil dto) {
-        return null;
+        try(PreparedStatement statement = this.connection.prepareStatement(INSERT);)
+        {
+            statement.setInt(1, dto.getGameId());
+            statement.setInt(2, dto.getUserId());
+            statement.execute();
+            return this.findById(dto.getGameId());
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public PlayerUtil update(PlayerUtil dto) {
-        return null;
+    public void update(PlayerUtil dto) {
+
+
+    }
+
+    public void updateCash(PlayerUtil dto,int newAmount,int withdrawOrDeposit)
+    {
+
+        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE);)
+        {
+            statement.setString(1,"cash");
+            statement.setInt(2,(dto.getCash() + (newAmount*withdrawOrDeposit))); // can I get the current value then just add 50?
+            statement.setInt(3,dto.getGameId());
+            statement.setInt(4,dto.getUserId());
+            statement.execute();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
-    public PlayerUtil delete(PlayerUtil dto) {
-        return null;
+    public void delete(PlayerUtil dto)
+    {
+        try(PreparedStatement statement = this.connection.prepareStatement(DELETE);)
+        {
+            statement.setInt(1,dto.getGameId());
+            statement.setInt(2,dto.getUserId()); // can I get the current value then just add 50?
+            statement.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

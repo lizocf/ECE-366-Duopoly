@@ -1,8 +1,10 @@
 package game;
 
+import java.sql.Connection;
+
 public interface Space {
 
-    void isOccupied(boolean occupied, String user);
+    void isOccupied(boolean occupied, String user, Connection connection);
     //    Alot of spaces in Duoploy require different actions
     //    depending on whether a user is on that space or not
     //    for example: if someone is on a property that has been

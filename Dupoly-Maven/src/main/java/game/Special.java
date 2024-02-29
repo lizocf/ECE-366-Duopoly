@@ -1,9 +1,11 @@
 package game;
 
 
+import java.sql.Connection;
 import java.util.Scanner;
 class Special implements Space
 {
+    boolean inJail = false;
     public String spaceName;
     public Special(String name) { spaceName = name; }
 
@@ -39,18 +41,23 @@ class Special implements Space
 
     private void jailSpace()
     {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Would you like to pay bail[Yes/No]: ");
-        String s = scanner.nextLine();
-
-        if (s.equals("Yes"))
+        if(inJail)
         {
-            // take 50 dollars from the user
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Would you like to pay bail[Yes/No]: ");
+            String s = scanner.nextLine();
+
+            if (s.equals("Yes"))
+            {
+                System.out.println("OUT ON BAIL");
+            }
+
         }
+
     }
 
     @Override
-    public void isOccupied(boolean occupied, String user)
+    public void isOccupied(boolean occupied, String user, Connection connection)
     {
         //Switch case that executes member functions
         switch (spaceName)

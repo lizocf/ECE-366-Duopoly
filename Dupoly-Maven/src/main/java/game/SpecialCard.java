@@ -1,5 +1,6 @@
 package game;
 
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ public class SpecialCard implements Card,Space {
             public void cardAction()
             {
                 // define what needs to happen in the sequel database
+                System.out.print("Special Card 1 happens");
 
             }
         });
@@ -26,6 +28,7 @@ public class SpecialCard implements Card,Space {
             public void cardAction()
             {
                 // define what needs to happen in the sequel database
+                System.out.print("Special Card 2 happens");
 
             }
         });
@@ -36,6 +39,7 @@ public class SpecialCard implements Card,Space {
             public void cardAction()
             {
                 // define what needs to happen in the sequel database
+                System.out.print("Special Card 3 happens");
 
             }
         });
@@ -46,13 +50,9 @@ public class SpecialCard implements Card,Space {
             public void cardAction()
             {
                 // define what needs to happen in the sequel database
-
+                System.out.print("Special Card 4 happens");
             }
         });
-
-
-
-
     }
 
     @Override
@@ -61,7 +61,6 @@ public class SpecialCard implements Card,Space {
     }
 
     @Override
-    public void isOccupied(boolean occupied, String user) {
-
+    public void isOccupied(boolean occupied, String user, Connection connection) {
     }
 }

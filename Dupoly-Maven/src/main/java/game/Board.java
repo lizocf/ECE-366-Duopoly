@@ -26,7 +26,7 @@ public class Board {
                 .add(25, "Card 3")
                 .add(25, "Card 4");
 
-        gameBoard = new Space[59];
+        gameBoard = new Space[60];
 
 
         // Better way to intialize this board using a loop but for now we will hardcode it. 
@@ -99,26 +99,7 @@ public class Board {
         gameBoard[58] = new SkullCard();
         gameBoard[59] = new Property(100,100,100,100);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
     private int doublesCounter = 0;
     // should be reset at the end of every player's turn
 
@@ -135,7 +116,6 @@ public class Board {
     {
         return abs(currSpaceNum - prevSpaceNum) > specialSpaceNum;
     }
-
-
-
 }
+
+// playing a game. Hard Code No game loop. Instatiate Player classes

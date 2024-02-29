@@ -19,11 +19,13 @@ public abstract class DataAccessObject <T extends DataTransferObject>
 
     public abstract T createInstance(T dto);
 
-    public abstract T update(T dto);
+    public void update(T dto) {
 
-    public abstract T delete(T dto);
+    }
 
+    public void delete(T dto) {
 
+    }
 
 
 }

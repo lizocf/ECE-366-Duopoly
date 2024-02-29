@@ -64,7 +64,7 @@ public class GameDAO extends DataAccessObject<GameUtil>
 
     //what else in a game updates besides the joinability and debtPot?
     @Override
-    public GameUtil update(GameUtil dto) {
+    public void update(GameUtil dto) {
         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE);)
         {
             //ResultSet rs = statement.executeQuery();
@@ -126,7 +126,7 @@ public class GameDAO extends DataAccessObject<GameUtil>
 
     // idk what to return here. Maybe it should be void.
     @Override
-    public GameUtil delete(GameUtil dto) {
+    public void delete(GameUtil dto) {
         try(PreparedStatement statement = this.connection.prepareStatement(DELETE);){
             statement.setInt(1,dto.getGameId());
             statement.execute();
