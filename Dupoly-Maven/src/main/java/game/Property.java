@@ -22,9 +22,13 @@ class Property implements Space {
         baseRent = rentPrice;
         buildRent = hotelRentPrice;
         // everything should get the same collection so its all in the database
-        OwnedPropertyDAO propertyDAO = new OwnedPropertyDAO(connection);
+        // OwnedPropertyDAO propertyDAO = new OwnedPropertyDAO(connection);
     }
 
+    public void setPropertyDAO(Connection connection) {
+
+        propertyDAO = new OwnedPropertyDAO(connection); 
+    }
 
     // need to pass in the gameId.
     // How are we passing in propery and set names. Do we change the function?
