@@ -11,6 +11,7 @@ public class JDBCExecutor
     public static void main(String... args) {
         // DatabaseConnectionManager dcm = new DatabaseConnectionManager("localhost",
                 // "duopoly", "postgres", "password");
+        // need to change localhost to db to work with docker. also, make "duopoly" database beforehand (see issue 1)
         DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
                 "duopoly", "postgres", "password"); 
 
