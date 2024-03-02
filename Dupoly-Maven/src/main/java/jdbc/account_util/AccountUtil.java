@@ -13,6 +13,7 @@ public class AccountUtil implements DataTransferObject
     public String eloRating, userName;
     private String password;
 
+    // @Override
     public int getUserId() {
         return userId;
     }
@@ -69,4 +70,13 @@ public class AccountUtil implements DataTransferObject
         this.password = password;
     }
 
+
+    @Override
+    public String toString() {
+        return "Account{" + 
+                "UserId="+ userId +
+                ", Username=" + userName +
+                ", wins='" + numWins + '\'' +
+                '}';
+    }
 }

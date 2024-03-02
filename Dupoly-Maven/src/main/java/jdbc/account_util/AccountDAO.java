@@ -14,15 +14,14 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
         super(connection);
     }
 
-    private static final String GET_ONE = "SELECT ? " +
+    private static final String GET_ONE = "SELECT user_name, num_wins, num_losses, duo_points " +
             "FROM accounts WHERE user_id=?";
 
-    private static final String INSERT = "INSERT INTO player_in_game(game_id, user_id)"
-            + " VALUES (?,?)";
+    private static final String INSERT = "INSERT INTO accounts (user_name)" + " VALUES (?)";
 
-    private static final String UPDATE = "UPDATE player_in_game " + "SET ? = ? " + "WHERE  game_id = ? AND user_id = ?";
+    private static final String UPDATE = "UPDATE accounts" + "SET ? = ? " + "WHERE user_id = ?";
 
-    private static final String DELETE = "DELETE FROM player_in_game " + " WHERE (game_id, user_id) = (?,?)";
+    private static final String DELETE = "DELETE FROM accounts" + " WHERE user_id = ?";
 
     @Override
     public AccountUtil findById(int id) {
@@ -36,7 +35,7 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
                 account.setUserName(rs.getString("user_name"));
                 account.setNumWins(rs.getInt("num_wins"));
                 account.setNumLosses(rs.getInt("num_losses"));
-                account.setEloRating(rs.getString("elo_rating"));
+                // account.setEloRating(rs.getString("elo_rating"));
                 account.setDuoPoints(rs.getInt("duo_points"));
             }
         }catch (SQLException e){
@@ -48,7 +47,16 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
 
     @Override
     public AccountUtil createInstance(AccountUtil dto) {
-        return null;
+        try(PreparedStatement statement = this.connection.prepareStatement(INSERT);) {
+            statement.setString(1, dto.getUserName());
+            // statement.setString(2, dto.getPassword());
+            // statement.setInt(3, dto.getWins());
+            statement.execute();
+            return this.findById(3);    // need user_id sequence
+        } catch(SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

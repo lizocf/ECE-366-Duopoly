@@ -1,5 +1,9 @@
 package jdbc;
 
+import game.*;
+import jdbc.*;
+import jdbc.account_util.*;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +27,23 @@ public class JDBCExecutor
             while(resultSet.next()){
                 System.out.println(resultSet.getInt(1));
             }
+        
+        // robbed from MainToyGame.java
+        AccountDAO accountDAO = new AccountDAO(connection);
+
+        AccountUtil account = accountDAO.findById(1);
+        System.out.println(account.getUserId() + " " + account.getUserName());
+
+
+        // Intailize Player account information
+        AccountUtil account1 = new AccountUtil();
+        account1.setUserName("Spicless");
+
+        account1 = accountDAO.createInstance(account1);
+        System.out.println(account1.getUserId() + " " + account1.getUserName());
+        // Board gb = new Board();
+
+
         }
         catch(SQLException e) {
             e.printStackTrace();
