@@ -42,7 +42,7 @@ public class JDBCExecutor
         // account1 = accountDAO.createInstance(account1);
         
         account1 = accountDAO.findById(4);
-        accountDAO.update(account1);
+        accountDAO.update_dp(account1);
         
         System.out.println(account1.getUserId() + " " + account1.getUserName());
         // Board gb = new Board();
