@@ -38,13 +38,32 @@ public class JDBCExecutor
         // Intailize Player account information
         AccountUtil account1 = new AccountUtil();
         
-        // account1.setUserName("Spicless");
-        // account1 = accountDAO.createInstance(account1);
+        //// createInstance for accounts works
+        account1.setUserName("Spicless");
+        account1 = accountDAO.createInstance(account1);
         
+        // set up which account we want to update
         account1 = accountDAO.findById(4);
-        accountDAO.update_dp(account1);
+
+        // update dp of account1 to 300 (NOT ADD 300)
+        accountDAO.update_dp(account1, 300);
         
-        System.out.println(account1.getUserId() + " " + account1.getUserName());
+        // update wins = wins + 1, we might not want to keep it this way
+        accountDAO.update(account1);
+
+        // update loss = loss + 1
+        accountDAO.update_loss(account1);
+
+        // update elo from iron to bronze
+        accountDAO.update_elo(account1, "Bronze");
+
+        System.out.println(account1.getUserId() + " " + account1.getUserName() + " " + 
+                           account1.getNumWins() + " " + account1.getNumLosses() + " " +
+                           account1.getEloRating() + " " + account1.getDuoPoints());
+
+        // delete account1
+        accountDAO.delete(account1);
+
         // Board gb = new Board();
 
 

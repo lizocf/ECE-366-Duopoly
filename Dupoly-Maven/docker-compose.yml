@@ -9,7 +9,8 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=lil-postgres
     expose:
-      - 5432:5432
+      # - 5432:5432
+      - "5432"
     ports:
       - 5432:5432
     restart: always
@@ -20,7 +21,8 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=lil-postgres
     expose:
-      - 8080:8080
+      # - 8080:8080
+      - "8080"
     ports:
       - 8080:8080
     depends_on:
