@@ -37,9 +37,13 @@ public class JDBCExecutor
 
         // Intailize Player account information
         AccountUtil account1 = new AccountUtil();
-        account1.setUserName("Spicless");
-
-        account1 = accountDAO.createInstance(account1);
+        
+        // account1.setUserName("Spicless");
+        // account1 = accountDAO.createInstance(account1);
+        
+        account1 = accountDAO.findById(4);
+        accountDAO.update(account1);
+        
         System.out.println(account1.getUserId() + " " + account1.getUserName());
         // Board gb = new Board();
 

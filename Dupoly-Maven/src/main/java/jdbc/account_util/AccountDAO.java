@@ -15,13 +15,14 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
     }
 
     private static final String GET_ONE = "SELECT user_name, num_wins, num_losses, duo_points " +
-            "FROM accounts WHERE user_id=?";
+                                          "FROM accounts WHERE user_id=(?)";
 
     private static final String INSERT = "INSERT INTO accounts (user_name)" + " VALUES (?)";
 
-    private static final String UPDATE = "UPDATE accounts" + "SET ? = ? " + "WHERE user_id = ?";
+    // private static final String UPDATE = "UPDATE accounts SET ?=? WHERE user_id=?";
+    private static final String UPDATE = "UPDATE accounts SET duo_points=? WHERE user_id=?";
 
-    private static final String DELETE = "DELETE FROM accounts" + " WHERE user_id = ?";
+    private static final String DELETE = "DELETE FROM accounts" + " WHERE user_id = (?)";
 
     @Override
     public AccountUtil findById(int id) {
@@ -35,7 +36,7 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
                 account.setUserName(rs.getString("user_name"));
                 account.setNumWins(rs.getInt("num_wins"));
                 account.setNumLosses(rs.getInt("num_losses"));
-                // account.setEloRating(rs.getString("elo_rating"));
+                // account.setEloRating(rs.getString("elo_rating")); // this isnt working ?? comment out
                 account.setDuoPoints(rs.getInt("duo_points"));
             }
         }catch (SQLException e){
@@ -52,7 +53,7 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
             // statement.setString(2, dto.getPassword());
             // statement.setInt(3, dto.getWins());
             statement.execute();
-            return this.findById(3);    // need user_id sequence
+            return this.findById(dto.getUserId());    // need user_id sequence
         } catch(SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -60,14 +61,19 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
     }
 
     @Override
-    public void update(AccountUtil dto)
-    {
-        if (true)
-        {
-
+    public void update(AccountUtil dto) { // update_dp
+        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE);)
+            {
+                // statement.setString(1,"duo_points"); // theres an issue with calling this :\
+                statement.setInt(1, 100); // 100 needs to be changed based on whether they win/lose/rank
+                statement.setInt(2,dto.getUserId());
+                statement.execute();
+            }catch (SQLException e){
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
         }
 
-    }
 
     @Override
     public void  delete(AccountUtil dto) {
