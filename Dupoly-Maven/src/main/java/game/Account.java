@@ -8,7 +8,7 @@ package game;
 // HOW AN ABSTRACT CLASS IS IMPLEMENTED.
 public class Account{
     public int user_id, num_wins, num_losses, elo_rating, duo_points;
-    public String user_name;
+    public int user_name;
     private
     String password;
 //    public Account(int user_id, int num_wins, int num_losses, int elo_rating, int duo_points, String[] user_name, String[] password) {
@@ -61,11 +61,11 @@ public class Account{
         this.duo_points = duo_points;
     }
 
-    public String getUser_name() {
+    public int getUser_name() {
         return user_name;
     }
 
-    public void setUser_name(String user_name) {
+    public void setUser_name(int user_name) {
         this.user_name = user_name;
     }
 

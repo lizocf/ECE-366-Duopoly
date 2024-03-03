@@ -29,11 +29,11 @@ public class OwnedPropertyDAO extends DataAccessObject<OwnedPropertyUtil>
 
     // Not sure how to go about this. Property needs to take in two ids. but the findbyId only has one.
     @Override
-    public OwnedPropertyUtil findById(int id) {
+    public OwnedPropertyUtil findById(OwnedPropertyUtil dto) {
         OwnedPropertyUtil property = new OwnedPropertyUtil();
         try(PreparedStatement statement = this.connection.prepareStatement(GET_ONE);)
         {
-            statement.setInt(1, id);
+            statement.setInt(1, dto.getUserId());
             ResultSet rs = statement.executeQuery();
 
             // Not sure what this should be
@@ -56,18 +56,14 @@ public class OwnedPropertyDAO extends DataAccessObject<OwnedPropertyUtil>
 
     // for when a user buys property
     @Override
-    public OwnedPropertyUtil createInstance(OwnedPropertyUtil dto)
-    {
-
-        try(PreparedStatement statement = this.connection.prepareStatement(INSERT);)
-        {
+    public OwnedPropertyUtil createInstance(OwnedPropertyUtil dto) {
+        try(PreparedStatement statement = this.connection.prepareStatement(INSERT);) {
             statement.setInt(1, dto.getGameId());
             statement.setInt(2, dto.getUserId());
             statement.setString(3, dto.getSetName());
             statement.setString(4,dto.getPropertyName());
             statement.execute();
-            return this.findById(dto.getGameId());
-
+            return this.findById(dto);
         }catch (SQLException e){
             e.printStackTrace();
             throw new RuntimeException(e);

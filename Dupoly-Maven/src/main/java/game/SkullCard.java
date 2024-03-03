@@ -63,7 +63,7 @@ public class SkullCard implements Card,Space {
     }
 
     @Override
-    public void isOccupied(boolean occupied, String user, Connection connection) {
+    public void isOccupied(boolean occupied, int userId, int gameId, Connection connection) {
         // does nothing ig
     }
 }

@@ -26,12 +26,12 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil> {
     // Same conceptual issue as OwnedPropertyDao's findById
     // The primary keys for  table are both id's -- need to take in both userId and gameId
     @Override
-    public PlayerUtil findById(int id) {
+    public PlayerUtil findById(PlayerUtil dto) {
         PlayerUtil player = new PlayerUtil();
         try(PreparedStatement statement = this.connection.prepareStatement(GET_ONE);)
         {
 
-            statement.setInt(1, id);
+            statement.setInt(1, dto.getUserId());
             ResultSet rs = statement.executeQuery();
 
             while(rs.next()) {
@@ -57,7 +57,7 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil> {
             statement.setInt(1, dto.getGameId());
             statement.setInt(2, dto.getUserId());
             statement.execute();
-            return this.findById(dto.getGameId());
+            return this.findById(dto);
         }catch (SQLException e){
             e.printStackTrace();
             throw new RuntimeException(e);

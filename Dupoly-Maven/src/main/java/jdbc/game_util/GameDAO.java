@@ -23,12 +23,12 @@ public class GameDAO extends DataAccessObject<GameUtil>
     private static final String DELETE = "DELETE FROM game_meta " + " WHERE ?";
 
     @Override
-    public GameUtil findById(int id) {
+    public GameUtil findById(GameUtil dto) {
         GameUtil game = new GameUtil();
         try(PreparedStatement statement = this.connection.prepareStatement(GET_ONE);)
         {
 
-            statement.setInt(1, id);
+            statement.setInt(1, dto.getGameId());
             ResultSet rs = statement.executeQuery();
 
             while(rs.next()) {
@@ -54,7 +54,7 @@ public class GameDAO extends DataAccessObject<GameUtil>
             statement.setInt(1, dto.getGameId());
             statement.setString(2, dto.getGameCode());
             statement.execute();
-            return this.findById(dto.getGameId());
+            return this.findById(dto);
 
         }catch (SQLException e){
             e.printStackTrace();

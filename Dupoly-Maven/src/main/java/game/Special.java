@@ -57,7 +57,7 @@ class Special implements Space
     }
 
     @Override
-    public void isOccupied(boolean occupied, String user, Connection connection)
+    public void isOccupied(boolean occupied, int userId, int gameId, Connection connection)
     {
         //Switch case that executes member functions
         switch (spaceName)

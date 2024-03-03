@@ -28,15 +28,15 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
     private static final String DELETE = "DELETE FROM accounts WHERE user_id = (?)";
 
     @Override
-    public AccountUtil findById(int id) {
+    public AccountUtil findById(AccountUtil dto) {
         AccountUtil account = new AccountUtil();
         try(PreparedStatement statement = this.connection.prepareStatement(GET_ONE);)
         {
-            statement.setInt(1, id);
+            statement.setInt(1, dto.getUserId());
             ResultSet rs = statement.executeQuery();
 
             while(rs.next()) {
-                account.setUserId(id); // need id to interface with accounts !!!!
+                account.setUserId(dto.getUserId()); // need id to interface with accounts !!!!
                 account.setUserName(rs.getString("user_name"));
                 account.setNumWins(rs.getInt("num_wins"));
                 account.setNumLosses(rs.getInt("num_losses"));
@@ -56,7 +56,7 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
             statement.setString(1, dto.getUserName());
             // statement.setString(2, dto.getPassword());
             statement.execute();
-            return this.findById(dto.getUserId());    // need user_id sequence
+            return this.findById(dto);    // need user_id sequence
         } catch(SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

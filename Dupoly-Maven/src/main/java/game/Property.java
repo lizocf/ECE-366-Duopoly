@@ -9,8 +9,7 @@ import jdbc.player_util.*;
 class Property implements Space {
     public int baseCost,buildCost,baseRent,buildRent;
     public boolean purchased;
-    OwnedPropertyDAO propertyDAO;
-    OwnedPropertyUtil property;
+    // OwnedPropertyDAO propertyDAO;
 
 
 
@@ -25,10 +24,10 @@ class Property implements Space {
         // OwnedPropertyDAO propertyDAO = new OwnedPropertyDAO(connection);
     }
 
-    public void setPropertyDAO(Connection connection) {
-
-        propertyDAO = new OwnedPropertyDAO(connection);
-    }
+//    public void setPropertyDAO(Connection connection) {
+//
+//        propertyDAO = new OwnedPropertyDAO(connection);
+//    }
 
     // need to pass in the gameId.
     // How are we passing in propery and set names. Do we change the function?
@@ -36,26 +35,28 @@ class Property implements Space {
 
 
     @Override
-    public void isOccupied(boolean occupied, String user, Connection connection)
+    public void isOccupied(boolean occupied, int userId, int gameId, Connection connection)
     {
+        OwnedPropertyDAO propertyDAO = new OwnedPropertyDAO(connection);
         if (occupied & !purchased)
         {
             //ask user if they want to purchase
             Scanner scanner = new Scanner(System.in);
-            System.out.print("Would you like to purchase[Yes/No]: ");
-            String s = scanner.nextLine();
+            System.out.print("Would you like to purchase[Yes/No]:  Yes");
+            // String s = scanner.nextLine();
 
-            if (s.equals("Yes"))
+            if (true)
             {
+
                 // update database (user has purchased a valid property)
                 System.out.print("Property Purchased");
-                property = new OwnedPropertyUtil();
+                OwnedPropertyUtil property = new OwnedPropertyUtil();
                 // set the other stuff
-                property.setPropertyName("???");
+                property.setPropertyName("New York City");
                 property.setNumOfHotels(0);
-                property.setSetName("???");
-                property.setUserId(0); // can we do a find Id by player name?
-                property.setGameId(0);// needs to be passed in
+                property.setSetName("New York");
+                property.setUserId(userId); // can we do a find Id by player name?
+                property.setGameId(gameId);// needs to be passed in
                 property = propertyDAO.createInstance(property);
 
             }
@@ -69,15 +70,14 @@ class Property implements Space {
             // we need to get a player by the id finder
             // call the update for that player
 
-            PlayerDAO playerDAO = new PlayerDAO(connection);
-            PlayerUtil player = playerDAO.findById(0);
+            // PlayerDAO playerDAO = new PlayerDAO(connection);
+            // PlayerUtil player = playerDAO.findById();
             // these need to be actual values
-            playerDAO.updateCash(player,baseCost,1); // we need to return a player I guess.
+            // playerDAO.updateCash(player,baseCost,1); // we need to return a player I guess.
 
             // how do I link the util to the other things?
 
             // we pass this into a player update cash function? whcih leads us to
-
 
         }
 
