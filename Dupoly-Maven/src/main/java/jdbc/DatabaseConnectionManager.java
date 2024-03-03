@@ -20,7 +20,6 @@ public class DatabaseConnectionManager {
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(this.url, this.properties);
     }
-
 }
 
 

@@ -9,17 +9,21 @@ import jdbc.player_util.*;
 class Property implements Space {
     public int baseCost,buildCost,baseRent,buildRent;
     public boolean purchased;
+
+    public String propertyName, setName;
     // OwnedPropertyDAO propertyDAO;
 
 
 
 
-    public Property(int costPrice, int buildingCostPrice, int rentPrice, int hotelRentPrice)
+    public Property(int costPrice, int buildingCostPrice, int rentPrice, int hotelRentPrice,String propname,String setname)
     {
         baseCost = costPrice;
         buildCost = buildingCostPrice;
         baseRent = rentPrice;
         buildRent = hotelRentPrice;
+        propertyName = propname;
+        setName = setname;
         // everything should get the same collection so its all in the database
         // OwnedPropertyDAO propertyDAO = new OwnedPropertyDAO(connection);
     }
@@ -52,11 +56,11 @@ class Property implements Space {
                 System.out.print("Property Purchased");
                 OwnedPropertyUtil property = new OwnedPropertyUtil();
                 // set the other stuff
-                property.setPropertyName("New York City");
+                property.setPropertyName(propertyName);
                 property.setNumOfHotels(0);
-                property.setSetName("New York");
-                property.setUserId(userId); // can we do a find Id by player name?
-                property.setGameId(gameId);// needs to be passed in
+                property.setSetName(setName);
+                property.setUserId(userId);
+                property.setGameId(gameId);
                 property = propertyDAO.createInstance(property);
 
             }
