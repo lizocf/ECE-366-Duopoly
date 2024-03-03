@@ -219,5 +219,4 @@ public class DuopolyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DuopolyApplication.class, args);
 	}
-
 }
