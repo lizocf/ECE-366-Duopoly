@@ -63,7 +63,7 @@ public class DuopolyApplication {
 		return account1;
 	}
 
-	//SORRY LZL 
+	//SORRY LZL
 //	@GetMapping("/createAccount/{userName}")
 //	public AccountUtil createAccount(@PathVariable("userName") String userName) {
 //		System.out.println(userName);
