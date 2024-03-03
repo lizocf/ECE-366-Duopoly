@@ -23,7 +23,7 @@ public class JDBCExecutor
 
         try {
             Connection connection = dcm.getConnection();
-            System.out.println("YIPEEEEE");
+            System.out.println("YIPEEEE");
 //            Statement statement = connection.createStatement();
 //            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM player_in_game");
 //            while(resultSet.next()){
@@ -60,13 +60,18 @@ public class JDBCExecutor
          GameUtil game1 = new GameUtil();
          Board gb = new Board();
 
+
         gameDAO.createInstance(game1);
 
         System.out.println(game1.getGameId());
+        // gb.lookup.put("New York City",1);
 
 
 
-        gb.gameBoard[1].isOccupied(true, account1.getUserId(), game1.getGameId(), connection);
+
+        gb.gameBoard[4].isOccupied(true, account1.getUserId(), game1.getGameId(), connection);
+        gb.gameBoard[9].isOccupied(true, account2.getUserId(), game1.getGameId(), connection);
+
 
 
 
