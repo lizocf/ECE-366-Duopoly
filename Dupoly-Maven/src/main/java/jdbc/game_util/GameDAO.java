@@ -13,10 +13,10 @@ public class GameDAO extends DataAccessObject<GameUtil>
     }
 
     private static final String GET_ONE = "SELECT game_id, game_code " +
-            " FROM game_meta WHERE game_id=?";
+            " FROM game_meta WHERE game_code=?";
 
-    private static final String INSERT = "INSERT INTO game_meta (game_id, game_code) " +
-            " VALUES (?, ?)";
+    private static final String INSERT = "INSERT INTO game_meta (game_code) " +
+            " VALUES (?)";
 
     private static final String UPDATE = "UPDATE game_meta " + "SET ? = ? " + " WHERE ? ";
 
@@ -28,7 +28,7 @@ public class GameDAO extends DataAccessObject<GameUtil>
         try(PreparedStatement statement = this.connection.prepareStatement(GET_ONE);)
         {
 
-            statement.setInt(1, dto.getGameId());
+            statement.setString(1, dto.getGameCode());
             ResultSet rs = statement.executeQuery();
 
             while(rs.next()) {
@@ -51,8 +51,8 @@ public class GameDAO extends DataAccessObject<GameUtil>
     public GameUtil createInstance(GameUtil dto) {
         try(PreparedStatement statement = this.connection.prepareStatement(INSERT);)
         {
-            statement.setInt(1, dto.getGameId());
-            statement.setString(2, dto.getGameCode());
+            //statement.setInt(1, dto.getGameId());
+            statement.setString(1, dto.getGameCode());
             statement.execute();
             return this.findById(dto);
 

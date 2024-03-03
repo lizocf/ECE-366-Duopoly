@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
 
+import jdbc.game_util.GameDAO;
+import jdbc.game_util.GameUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -107,7 +109,6 @@ public class DuopolyApplication {
 		}
 		return account1;
 	}
-
 
 	@GetMapping("/updateWins/{userName}")
 	public AccountUtil updateWins(@PathVariable("userName") String userName) {
@@ -216,7 +217,34 @@ public class DuopolyApplication {
 		return account1;
 	}
 
+	@PostMapping("/createNewGame")
+	public GameUtil createNewGame(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+				"duopoly", "postgres", "password");
+		GameUtil newGame = new GameUtil();
+		try {
+			Connection connection = dcm.getConnection();
+			GameDAO gameDAO = new GameDAO(connection);
+			newGame.setGameCode(inputMap.get("game_code"));
+
+			newGame = gameDAO.createInstance(newGame);
+			System.out.println(newGame);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return newGame;
+	}
+
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(DuopolyApplication.class, args);
 	}
 }
+// Plan of Attack
+// Initalize Players and Can do a couple of turns. We just do it on postman and write a script then it seems like we may be done???
