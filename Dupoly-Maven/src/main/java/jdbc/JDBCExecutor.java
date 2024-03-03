@@ -45,28 +45,28 @@ public class JDBCExecutor
         // account1 = accountDAO.createInstance(account1);
         account2.setUserName("PERSON2");
         // account2 = accountDAO.createInstance(account2);
-//        accountDAO.update_dp(account1, 300);
-//        accountDAO.update_dp(account2, 700);
+        accountDAO.update_dp(account1, 300);
+        accountDAO.update_dp(account2, 700);
 
         AccountUtil account2update = accountDAO.findById(account1);
         accountDAO.update_dp(account2update,6000);
         AccountUtil account2update2 = accountDAO.findById(account2);
         accountDAO.update_dp(account2update2,6100);
 
-        System.out.println(account2update.getUserName() + " " + account1.getUserId());
-        System.out.println(account2update2.getUserName() + " " + account2.getUserId());
+        System.out.println(account2update.getUserName() + " " + account2update.getUserId());
+        System.out.println(account2update2.getUserName() + " " + account2update2.getUserId());
 
-        GameDAO gameDAO = new GameDAO(connection);
-        GameUtil game1 = new GameUtil();
-        Board gb = new Board();
+        // GameDAO gameDAO = new GameDAO(connection);
+        // GameUtil game1 = new GameUtil();
+        // Board gb = new Board();
 
-        // gameDAO.createInstance(game1);
+        // // gameDAO.createInstance(game1);
 
-        System.out.println(game1.getGameId());
+        // System.out.println(game1.getGameId());
 
 
 
-        gb.gameBoard[1].isOccupied(true, account1.getUserId(), game1.getGameId(), connection);
+        // gb.gameBoard[1].isOccupied(true, account1.getUserId(), game1.getGameId(), connection);
 
 
 

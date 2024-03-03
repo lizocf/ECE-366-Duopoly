@@ -14,8 +14,8 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
         super(connection);
     }
 
-    private static final String GET_ONE = "SELECT user_name, num_wins, num_losses, elo_rating, duo_points " +
-                                          "FROM accounts WHERE user_id=(?)";
+    private static final String GET_ONE = "SELECT user_id, user_name, num_wins, num_losses, elo_rating, duo_points " +
+                                          "FROM accounts WHERE user_name=(?)";
 
     private static final String INSERT = "INSERT INTO accounts (user_name)" + " VALUES (?)";
 
@@ -32,11 +32,12 @@ public class AccountDAO extends DataAccessObject<AccountUtil>
         AccountUtil account = new AccountUtil();
         try(PreparedStatement statement = this.connection.prepareStatement(GET_ONE);)
         {
-            statement.setInt(1, dto.getUserId());
+            // statement.setInt(1, dto.getUserId());
+            statement.setString(1, dto.getUserName());
             ResultSet rs = statement.executeQuery();
 
             while(rs.next()) {
-                account.setUserId(dto.getUserId()); // need id to interface with accounts !!!!
+                account.setUserId(rs.getInt("user_id")); // need id to interface with accounts !!!!
                 account.setUserName(rs.getString("user_name"));
                 account.setNumWins(rs.getInt("num_wins"));
                 account.setNumLosses(rs.getInt("num_losses"));
