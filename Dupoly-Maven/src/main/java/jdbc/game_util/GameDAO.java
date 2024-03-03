@@ -34,10 +34,10 @@ public class GameDAO extends DataAccessObject<GameUtil>
             while(rs.next()) {
                 game.setGameId(rs.getInt("game_id"));
                 game.setGameCode(rs.getString("game_code"));
-                game.setNumOfPlayers(rs.getInt("num_players"));
-                game.setDebtPot(rs.getInt("debt_pot"));
-                game.setPlayerTurn(rs.getInt("which_player_turn"));
-                game.setJoinable(rs.getBoolean("joinable"));
+//                game.setNumOfPlayers(rs.getInt("num_players"));
+//                game.setDebtPot(rs.getInt("debt_pot"));
+//                game.setPlayerTurn(rs.getInt("which_player_turn"));
+//                game.setJoinable(rs.getBoolean("joinable"));
             }
 
         }catch (SQLException e){
