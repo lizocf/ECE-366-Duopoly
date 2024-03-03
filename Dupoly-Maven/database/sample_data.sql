@@ -256,4 +256,6 @@ WHERE game_id = 1 and user_id = 3 and set_name = 'California';
 -- DELETE FROM "game_meta" WHERE "game_id" = 1;
 -- delete on cascade !! (player_in_game rows get deleted too)
 
+-- reset game_id and user_id: 
 -- ALTER SEQUENCE game_meta_game_id_seq RESTART WITH 1;
+-- ALTER SEQUENCE accounts_user_id_seq RESTART WITH 1;
