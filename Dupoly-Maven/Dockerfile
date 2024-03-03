@@ -5,4 +5,7 @@ RUN mvn -e -Dmaven.test.skip package
 
 FROM eclipse-temurin:latest
 COPY --from=build /project/target /app/target
-ENTRYPOINT java -jar /app/target/Dupoly-Maven-1.0-SNAPSHOT.jar
+# jdbc executor
+# ENTRYPOINT java -jar /app/target/Dupoly-Maven-1.0-SNAPSHOT.jar
+# had to change bc of springboot
+ENTRYPOINT java -jar /app/target/duopoly-1.0-SNAPSHOT-spring-boot.jar
