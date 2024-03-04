@@ -417,6 +417,31 @@ public class DuopolyApplication {
 		return player1;
 	}
 
+	@PostMapping("/updateDir")
+	public PlayerUtil updatePos(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+				"duopoly", "postgres", "password");
+		PlayerUtil player1 = new PlayerUtil();
+
+		try {
+			Connection connection = dcm.getConnection();
+			PlayerDAO playerDAO = new PlayerDAO(connection);
+			player1.setUserId(Integer.valueOf(inputMap.get("user_id")));
+			player1.setGameId(Integer.valueOf(inputMap.get("game_id")));
+			player1 = playerDAO.findById(player1);
+			playerDAO.update_direction(player1, inputMap.get("direction"));
+			System.out.println(player1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return player1;
+	}
+
 	@GetMapping("/createOwnedProperty")
 	public void createOwnedProperty(@RequestBody String json) throws JsonProcessingException
 	{
