@@ -418,7 +418,7 @@ public class DuopolyApplication {
 	}
 
 	@PostMapping("/updateDir")
-	public PlayerUtil updatePos(@RequestBody String json) throws JsonProcessingException
+	public PlayerUtil updateDir(@RequestBody String json) throws JsonProcessingException
 	{
 		System.out.println(json);
 		ObjectMapper objectMapper = new ObjectMapper();
