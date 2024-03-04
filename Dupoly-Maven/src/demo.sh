@@ -56,8 +56,8 @@ curl --header "Content-Type: application/json" \
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{
-    "game_id": "1"
-    "user_id": "2"
+    "game_id": "1",
+    "user_id": "2",
     "direction": "right"
     }' \
     "http://localhost:8080/updateDir"
@@ -66,8 +66,8 @@ curl --header "Content-Type: application/json" \
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{
-    "game_id": "1"
-    "user_id": "2"
+    "game_id": "1",
+    "user_id": "2",
     "move_to": "2"
   }'
 # user_id 2 chooses to purchase space 2
@@ -94,8 +94,8 @@ curl --header "Content-Type: application/json" \
 curl --header "Content-Type: application/json" \
   --request POST \
   --data '{
-    "game_id": "1"
-    "user_id": "1"
+    "game_id": "1",
+    "user_id": "1",
     "direction": "left"
     }' \
     "http://localhost:8080/updateDir"
