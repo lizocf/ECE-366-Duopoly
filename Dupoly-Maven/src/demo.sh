@@ -69,7 +69,9 @@ curl --header "Content-Type: application/json" \
     "game_id": "1",
     "user_id": "2",
     "move_to": "2"
-  }'
+  }' \
+  "http://localhost:8080/updatePos"
+
 # user_id 2 chooses to purchase space 2
 curl --header "Content-Type: application/json" \
   --request GET \
