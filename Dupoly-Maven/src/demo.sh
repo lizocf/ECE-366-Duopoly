@@ -150,7 +150,7 @@ curl --header "Content-Type: application/json:" \
   --data '{
     "user_id": "3",
     "game_id": "1",
-    "move_to": "8"
+    "move_to": "13"
     }' \
     "http://localhost:8080/updatePos"
 
@@ -158,7 +158,7 @@ curl --header "Content-Type: application/json:" \
 curl --header "Content-Type: application/json" \
   --request GET \
   --data '{
-    "space" : "8",
+    "space" : "13",
     "user_id": "3",
     "game_id": "1"
   }' \

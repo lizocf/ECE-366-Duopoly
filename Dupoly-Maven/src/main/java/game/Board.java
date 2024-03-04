@@ -58,7 +58,7 @@ public class Board {
 
         gameBoard[11] = new Property(100,100,100,100,"Salem", "New York"); //need to input property name
         gameBoard[12] = new Property(100,100,100,100,"Detroit", "New York"); // might need a speicial Card NAme. Also We should have the hashmaps be here not in the classes themselves. Then we pass in the map. IDK
-        gameBoard[13] = new Property(100,100,100,100,"Flint", "New York");
+        gameBoard[13] = new Property(100,100,100,100,"Flint", "Michigan");
         gameBoard[14] = new Property(100,100,100,100,"Rochester", "New York");
         gameBoard[15] = new Property(100,100,100,100,"Cleveland", "New York");
         gameBoard[16] = new SpecialCard();
@@ -99,7 +99,7 @@ public class Board {
         gameBoard[51] = new Property(100,100,100,100,"LAX", "New York"); //need to input property name
         gameBoard[52] = new SpecialCard();
         gameBoard[53] = new Property(100,100,100,100,"DFW", "New York");
-        gameBoard[54] = new Property(100,100,100,100,"DCA", "New York");
+        gameBoard[54] = new Property(100,100,100,100,"DCA", "Airport");
         gameBoard[55] = new Property(100,100,100,100,"Tax", "New York");
         gameBoard[56] = new Property(100,100,100,100,"New York City", "New York");
         gameBoard[57] = new Property(100,100,100,100,"New York City", "New York");
