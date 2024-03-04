@@ -18,10 +18,16 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil>
     private static final String INSERT = "INSERT INTO player_in_game(game_id, user_id)"
             + " VALUES (?,?)";
 
-    private static final String UPDATE = "UPDATE player_in_game " + "SET ? = ? " + "WHERE  game_id = ? AND user_id = ?";
+    // private static final String UPDATE = "UPDATE player_in_game " + "SET ? = ? " + "WHERE ?";
+    private static final String UPDATE_DEAD = "UPDATE player_in_game " + "SET dead = ? " + "WHERE user_id = ?";
+    private static final String UPDATE_CASH = "UPDATE player_in_game " + "SET cash = ? " + "WHERE user_id = ?";
+    private static final String UPDATE_DIR = "UPDATE player_in_game " + "SET current_direction = ? " + "WHERE user_id = ?";
+    private static final String UPDATE_JAIL = "UPDATE player_in_game " + "SET jail = ? " + "WHERE user_id = ?";
+    private static final String UPDATE_AFK = "UPDATE player_in_game " + "SET afk = ? " + "WHERE user_id = ?";
+    private static final String UPDATE_POS = "UPDATE player_in_game " + "SET current_position = ? " + "WHERE user_id = ?";
 
 
-    private static final String DELETE = "DELETE FROM player_in_game " + " WHERE (game_id, user_id) = (?,?)";
+    private static final String DELETE = "DELETE FROM player_in_game WHERE user_id = ?";
 
     @Override
     public PlayerUtil findById(PlayerUtil dto) {
@@ -64,27 +70,96 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil>
     }
 
     @Override
-    public void update(PlayerUtil dto) {
-
-
+    public void update(PlayerUtil dto) // updateDead
+    {
+         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_DEAD);)
+        {
+            // statement.setString(1,"dead");
+            statement.setBoolean(1, 1==1);
+            statement.setInt(2,dto.getUserId());
+            statement.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    public void updateCash(PlayerUtil dto,int newAmount,int withdrawOrDeposit)
+    public void updateCash(PlayerUtil dto, int newAmount) 
     {
-
-        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE);)
+        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_CASH);)
         {
-            statement.setString(1,"cash");
-            statement.setInt(2,(dto.getCash() + (newAmount*withdrawOrDeposit))); // can I get the current value then just add 50?
-            statement.setInt(3,dto.getGameId());
-            statement.setInt(4,dto.getUserId());
+            // statement.setString(1,"cash");
+            statement.setInt(1,(dto.getCash() + newAmount)); // can I get the current value then just add 50?
+            // statement.setInt(3,dto.getGameId());
+            statement.setInt(2,dto.getUserId());
             statement.execute();
 
         }catch (SQLException e){
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
 
+    public void updateDirection(PlayerUtil dto, String direction)
+    {
+        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_DIR);)
+        {
+            // statement.setString(1,"current_direction");
+            statement.setString(1, direction);
+            // statement.setInt(3,dto.getGameId());
+            statement.setInt(2,dto.getUserId());
+            statement.execute();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateJail(PlayerUtil dto, boolean yes)
+    {
+        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_JAIL);)
+        {
+            // statement.setString(1,"jail");
+            statement.setBoolean(1, yes);
+            // statement.setInt(3,dto.getGameId());
+            statement.setInt(2,dto.getUserId());
+            statement.execute();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateAfk(PlayerUtil dto, boolean yes)
+    {
+        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_AFK);)
+        {
+            // statement.setString(1,"afk");
+            statement.setBoolean(1, yes);
+            // statement.setInt(3,dto.getGameId());
+            statement.setInt(2,dto.getUserId());
+            statement.execute();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public void updatePosition(PlayerUtil dto, int move) // update_position
+    {
+         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_POS);)
+        {
+            // statement.setString(1,"current_position");
+            statement.setInt(1, move);
+            statement.setInt(2,dto.getUserId());
+            statement.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -92,8 +167,7 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil>
     {
         try(PreparedStatement statement = this.connection.prepareStatement(DELETE);)
         {
-            statement.setInt(1,dto.getGameId());
-            statement.setInt(2,dto.getUserId()); // can I get the current value then just add 50?
+            statement.setInt(1,dto.getUserId());
             statement.execute();
         }catch (SQLException e){
             e.printStackTrace();
