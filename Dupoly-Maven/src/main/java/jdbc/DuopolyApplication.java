@@ -435,8 +435,7 @@ public class DuopolyApplication {
 			e.printStackTrace();
 		}
 	}
-	//
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(DuopolyApplication.class, args);
 	}
