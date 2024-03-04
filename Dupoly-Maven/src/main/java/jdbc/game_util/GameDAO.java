@@ -12,15 +12,19 @@ public class GameDAO extends DataAccessObject<GameUtil>
         super(connection);
     }
 
-    private static final String GET_ONE = "SELECT game_id, game_code " +
+    private static final String GET_ONE = "SELECT game_id, game_code,debt_pot " +
             " FROM game_meta WHERE game_code=?";
 
     private static final String INSERT = "INSERT INTO game_meta (game_code) " +
             " VALUES (?)";
 
     private static final String UPDATE = "UPDATE game_meta " + "SET ? = ? " + " WHERE ? ";
+    private static final String UPDATE_DEBT = "UPDATE game_meta " + "SET debt_pot = ? WHERE game_id = ? ";    
+    private static final String UPDATE_JOIN = "UPDATE game_meta " + "SET joinable = ? WHERE game_id = ? ";      
+    private static final String UPDATE_TURN = "UPDATE game_meta " + "SET which_player_turn = ?  WHERE game_id = ? "; 
 
-    private static final String DELETE = "DELETE FROM game_meta " + " WHERE ?";
+
+    private static final String DELETE = "DELETE FROM game_meta WHERE game_id = ?";
 
     @Override
     public GameUtil findById(GameUtil dto) {
@@ -35,7 +39,7 @@ public class GameDAO extends DataAccessObject<GameUtil>
                 game.setGameId(rs.getInt("game_id"));
                 game.setGameCode(rs.getString("game_code"));
 //                game.setNumOfPlayers(rs.getInt("num_players"));
-//                game.setDebtPot(rs.getInt("debt_pot"));
+                game.setDebtPot(rs.getInt("debt_pot"));
 //                game.setPlayerTurn(rs.getInt("which_player_turn"));
 //                game.setJoinable(rs.getBoolean("joinable"));
             }
@@ -69,9 +73,8 @@ public class GameDAO extends DataAccessObject<GameUtil>
         {
             //ResultSet rs = statement.executeQuery();
             //what about ?
-            statement.setString(1,"debt_pot");
-            statement.setInt(2,(dto.getDebtPot() + 50)); // can I get the current value then just add 50?
-            statement.setInt(3,dto.getGameId());
+            statement.setInt(1,(dto.getDebtPot() + 50)); // can I get the current value then just add 50?
+            statement.setInt(2,dto.getGameId());
             statement.execute();
 
         }catch (SQLException e){
@@ -82,11 +85,11 @@ public class GameDAO extends DataAccessObject<GameUtil>
 
 
     public void updateDebtPot(GameUtil dto) {
-        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE);)
+        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_DEBT);)
         {
-            statement.setString(1,"debt_pot");
-            statement.setInt(2,(dto.getDebtPot() + 50)); // can I get the current value then just add 50?
-            statement.setInt(3,dto.getGameId());
+            // statement.setString(1,"debt_pot");
+            statement.setInt(1,(dto.getDebtPot() + 50)); // can I get the current value then just add 50?
+            statement.setInt(2,dto.getGameId());
             statement.execute();
 
         }catch (SQLException e){
@@ -96,11 +99,10 @@ public class GameDAO extends DataAccessObject<GameUtil>
     }
 
     public void updateJoinable(GameUtil dto) {
-        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE);)
+        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_JOIN);)
         {
-            statement.setString(1,"joinable");
-            statement.setBoolean(2,false); // can I get the current value then just add 50?
-            statement.setInt(3,dto.getGameId());
+            statement.setBoolean(1,false);
+            statement.setInt(2,dto.getGameId());
             statement.execute();
 
         }catch (SQLException e){
@@ -111,11 +113,10 @@ public class GameDAO extends DataAccessObject<GameUtil>
 
     // might need to pass in a player dto
     public void updatePlayerTurn(GameUtil dto) {
-        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE);)
+        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_TURN);)
         {
-            statement.setString(1,"which_player_turn");
-            statement.setInt(2,dto.getId()); // this needs to be an actual player id.
-            statement.setInt(3,dto.getGameId());
+            statement.setInt(1,dto.getId()); // this needs to be an actual player id.
+            statement.setInt(2,dto.getGameId());
             statement.execute();
 
         }catch (SQLException e){
