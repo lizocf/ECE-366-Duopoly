@@ -263,6 +263,34 @@ public class DuopolyApplication {
 		return player1;
 	}
 
+	@PostMapping("/createPlayerInGame")
+	public PlayerUtil createPlayerInGame(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+				"duopoly", "postgres", "password");
+		PlayerUtil player1 = new PlayerUtil();
+
+		try {
+			Connection connection = dcm.getConnection();
+			PlayerDAO playerDAO = new PlayerDAO(connection);
+			//
+			player1.setUserId(Integer.valueOf(inputMap.get("user_id")));
+			player1.setGameId(Integer.valueOf(inputMap.get("game_id")));
+			// The next 2 lines cause build error
+			//player1.setUserId(inputMap.get("user_id"));
+			//player1.setGameId(inputMap.get("game_id"));
+
+			player1 = playerDAO.createInstance(player1);
+			System.out.println(player1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return player1;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(DuopolyApplication.class, args);
