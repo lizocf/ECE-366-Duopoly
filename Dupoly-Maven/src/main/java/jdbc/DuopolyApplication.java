@@ -241,6 +241,7 @@ public class DuopolyApplication {
 		return newGame;
 	}
 
+// PlayerDAO stuff //
 	@GetMapping("/getPlayerInGame/{gameId}/{userId}")
 	public PlayerUtil getPlayerInGame(@PathVariable("gameId") int gameId,
 								  @PathVariable("userId") int userId) {
@@ -259,6 +260,151 @@ public class DuopolyApplication {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
+		}
+		return player1;
+	}
+
+	@GetMapping("/updateDead/{gameId}/{userId}")
+	public PlayerUtil updateCash(@PathVariable("gameId") int gameId,
+								 @PathVariable("userId") int userId) {
+		System.out.println(userId);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+		PlayerUtil player1 = new PlayerUtil();
+		player1.setGameId(gameId);
+		player1.setUserId(userId);
+		try {
+            Connection connection = dcm.getConnection();
+            PlayerDAO playerDAO = new PlayerDAO(connection);
+
+			
+			player1 = playerDAO.findById(player1);
+			playerDAO.update(player1);
+			player1 = playerDAO.findById(player1);
+            System.out.println(player1);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+		}
+		return player1;
+	}
+
+	@GetMapping("/updateCash/{gameId}/{userId}/{cash}")
+	public PlayerUtil updateCash(@PathVariable("gameId") int gameId,
+								 @PathVariable("userId") int userId,
+								 @PathVariable("cash") int cash) {
+		System.out.println(userId);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+		PlayerUtil player1 = new PlayerUtil();
+		player1.setGameId(gameId);
+		player1.setUserId(userId);
+		try {
+            Connection connection = dcm.getConnection();
+            PlayerDAO playerDAO = new PlayerDAO(connection);
+
+			player1 = playerDAO.findById(player1);
+			playerDAO.updateCash(player1, cash);
+            System.out.println(player1);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+		}
+		return player1;
+	}
+
+	@GetMapping("/updateDir/{gameId}/{userId}/{dir}")
+	public PlayerUtil updateDir(@PathVariable("gameId") int gameId,
+								 @PathVariable("userId") int userId,
+								 @PathVariable("dir") String dir) {
+		System.out.println(userId);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+		PlayerUtil player1 = new PlayerUtil();
+		player1.setGameId(gameId);
+		player1.setUserId(userId);
+		try {
+            Connection connection = dcm.getConnection();
+            PlayerDAO playerDAO = new PlayerDAO(connection);
+			
+			player1 = playerDAO.findById(player1);
+			playerDAO.updateDirection(player1, dir);
+            System.out.println(player1);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+		}
+		return player1;
+	}
+
+	@GetMapping("/updateJail/{gameId}/{userId}/{jail}")
+	public PlayerUtil updateJail(@PathVariable("gameId") int gameId,
+								 @PathVariable("userId") int userId,
+								 @PathVariable("jail") boolean jail) {
+		System.out.println(userId);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+		PlayerUtil player1 = new PlayerUtil();
+		player1.setGameId(gameId);
+		player1.setUserId(userId);
+		try {
+            Connection connection = dcm.getConnection();
+            PlayerDAO playerDAO = new PlayerDAO(connection);
+			
+			player1 = playerDAO.findById(player1);
+			playerDAO.updateJail(player1, jail);
+            System.out.println(player1);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+		}
+		return player1;
+	}
+
+	@GetMapping("/updateAfk/{gameId}/{userId}/{afk}")
+	public PlayerUtil updateAfk(@PathVariable("gameId") int gameId,
+								 @PathVariable("userId") int userId,
+								 @PathVariable("afk") boolean afk) {
+		System.out.println(userId);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+		PlayerUtil player1 = new PlayerUtil();
+		player1.setGameId(gameId);
+		player1.setUserId(userId);
+		try {
+            Connection connection = dcm.getConnection();
+            PlayerDAO playerDAO = new PlayerDAO(connection);
+			
+			player1 = playerDAO.findById(player1);
+			playerDAO.updateAfk(player1, afk);
+            System.out.println(player1);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+		}
+		return player1;
+	}
+
+	@GetMapping("/updatePos/{gameId}/{userId}/{pos}")
+	public PlayerUtil updatePos(@PathVariable("gameId") int gameId,
+								 @PathVariable("userId") int userId,
+								 @PathVariable("pos") int pos) {
+		System.out.println(userId);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+		PlayerUtil player1 = new PlayerUtil();
+		player1.setGameId(gameId);
+		player1.setUserId(userId);
+		try {
+            Connection connection = dcm.getConnection();
+            PlayerDAO playerDAO = new PlayerDAO(connection);
+			
+			player1 = playerDAO.findById(player1);
+			playerDAO.updatePosition(player1, pos);
+            System.out.println(player1);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
 		}
 		return player1;
 	}
