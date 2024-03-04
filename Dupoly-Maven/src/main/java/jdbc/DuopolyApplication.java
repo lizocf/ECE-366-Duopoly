@@ -32,10 +32,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 public class DuopolyApplication {
 
+	Board gb = new Board();
+
+
+
 	@GetMapping("/helloWorld")
 	public String helloWorld() {
 		System.out.println("HELLO WORLD");
 		return "Hello World";
+
 	}
 
 	@GetMapping("/simpleTest")
@@ -437,6 +442,26 @@ public class DuopolyApplication {
 		}
 		return player1;
 	}
+
+	@GetMapping("/createOwnedProperty")
+	public void createOwnedProperty(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+				"duopoly", "postgres", "password");
+
+		try
+		{
+			Connection connection = dcm.getConnection();
+			gb.gameBoard[Integer.valueOf(inputMap.get("space"))].isOccupied(true,Integer.valueOf(inputMap.get("user_id")),Integer.valueOf(inputMap.get("game_id")),connection);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	//
 
 	public static void main(String[] args) {
 		SpringApplication.run(DuopolyApplication.class, args);
