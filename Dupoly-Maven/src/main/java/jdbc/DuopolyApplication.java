@@ -66,27 +66,6 @@ public class DuopolyApplication {
 		return account1;
 	}
 
-	//SORRY LZL
-//	@GetMapping("/createAccount/{userName}")
-//	public AccountUtil createAccount(@PathVariable("userName") String userName) {
-//		System.out.println(userName);
-//		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-//                "duopoly", "postgres", "password");
-//		AccountUtil account1 = new AccountUtil();
-//		account1.setUserName(userName);
-//		try {
-//            Connection connection = dcm.getConnection();
-//            AccountDAO accountDAO = new AccountDAO(connection);
-//
-//            account1 = accountDAO.createInstance(account1);
-//            System.out.println(account1);
-//        }
-//        catch(SQLException e) {
-//            e.printStackTrace();
-//		}
-//		return account1;
-//	}
-
 	@PostMapping("/createNewAccount")
 	public AccountUtil createNewAccount(@RequestBody String json) throws JsonProcessingException
 	{
@@ -111,109 +90,124 @@ public class DuopolyApplication {
 		return account1;
 	}
 
-	@GetMapping("/updateWins/{userName}")
-	public AccountUtil updateWins(@PathVariable("userName") String userName) {
-		System.out.println(userName);
-		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-                "duopoly", "postgres", "password");
-		AccountUtil account1 = new AccountUtil();
-		account1.setUserName(userName);
-		try {
-            Connection connection = dcm.getConnection();
-            AccountDAO accountDAO = new AccountDAO(connection);
 
+	@PostMapping("/updateWins")
+	public AccountUtil updateWins(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+				"duopoly", "postgres", "password");
+		AccountUtil account1 = new AccountUtil();
+
+		try {
+			Connection connection = dcm.getConnection();
+			AccountDAO accountDAO = new AccountDAO(connection);
+			account1.setUserName(inputMap.get("user_name"));
 			account1 = accountDAO.findById(account1);
-            accountDAO.update(account1);
-            System.out.println(account1);
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
+			accountDAO.update(account1);
+			System.out.println(account1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 		return account1;
 	}
 
-	@GetMapping("/updateLoss/{userName}")
-	public AccountUtil updateLoss(@PathVariable("userName") String userName) {
-		System.out.println(userName);
-		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-                "duopoly", "postgres", "password");
-		AccountUtil account1 = new AccountUtil();
-		account1.setUserName(userName);
-		try {
-            Connection connection = dcm.getConnection();
-            AccountDAO accountDAO = new AccountDAO(connection);
 
+	@PostMapping("/updateLoss")
+	public AccountUtil updateLoss(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+				"duopoly", "postgres", "password");
+		AccountUtil account1 = new AccountUtil();
+
+		try {
+			Connection connection = dcm.getConnection();
+			AccountDAO accountDAO = new AccountDAO(connection);
+			account1.setUserName(inputMap.get("user_name"));
 			account1 = accountDAO.findById(account1);
-            accountDAO.update_loss(account1);
-            System.out.println(account1);
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
+			accountDAO.update_loss(account1);
+			System.out.println(account1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 		return account1;
 	}
 
-	@GetMapping("/updateDP/{userName}/{duo_points}")
-	public AccountUtil updateDP(@PathVariable("userName") String userName,
-								@PathVariable("duo_points") int duo_points) {
-		System.out.println(userName);
+	@PostMapping("/updateDP")
+	public AccountUtil updateDP(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
 		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-                "duopoly", "postgres", "password");
+				"duopoly", "postgres", "password");
 		AccountUtil account1 = new AccountUtil();
-		account1.setUserName(userName);
-		try {
-            Connection connection = dcm.getConnection();
-            AccountDAO accountDAO = new AccountDAO(connection);
 
+		try {
+			Connection connection = dcm.getConnection();
+			AccountDAO accountDAO = new AccountDAO(connection);
+			account1.setUserName(inputMap.get("user_name"));
 			account1 = accountDAO.findById(account1);
-            accountDAO.update_dp(account1, duo_points);
-            System.out.println(account1);
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
+			accountDAO.update_dp(account1, Integer.valueOf(inputMap.get("duo_points")));
+			System.out.println(account1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 		return account1;
 	}
 
-	@GetMapping("/updateElo/{userName}/{elo_rating}")
-	public AccountUtil updateElo(@PathVariable("userName") String userName,
-								 @PathVariable("elo_rating") String elo) {
-		System.out.println(userName);
+	@PostMapping("/updateElo")
+	public AccountUtil updateElo(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
 		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-                "duopoly", "postgres", "password");
+				"duopoly", "postgres", "password");
 		AccountUtil account1 = new AccountUtil();
-		account1.setUserName(userName);
-		try {
-            Connection connection = dcm.getConnection();
-            AccountDAO accountDAO = new AccountDAO(connection);
 
+		try {
+			Connection connection = dcm.getConnection();
+			AccountDAO accountDAO = new AccountDAO(connection);
+			account1.setUserName(inputMap.get("user_name"));
 			account1 = accountDAO.findById(account1);
-            accountDAO.update_elo(account1, elo);
-            System.out.println(account1);
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
+			accountDAO.update_elo(account1, inputMap.get("elo"));
+			System.out.println(account1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 		return account1;
 	}
 
-	@GetMapping("/deleteAccount/{userName}")
-	public AccountUtil updateElo(@PathVariable("userName") String userName) {
-		System.out.println(userName);
+	@PostMapping("/deleteAccount")
+	public AccountUtil deleteAcc(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
 		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-                "duopoly", "postgres", "password");
+				"duopoly", "postgres", "password");
 		AccountUtil account1 = new AccountUtil();
-		account1.setUserName(userName);
-		try {
-            Connection connection = dcm.getConnection();
-            AccountDAO accountDAO = new AccountDAO(connection);
 
+		try {
+			Connection connection = dcm.getConnection();
+			AccountDAO accountDAO = new AccountDAO(connection);
+			account1.setUserName(inputMap.get("user_name"));
 			account1 = accountDAO.findById(account1);
-            accountDAO.delete(account1);
-            System.out.println(account1);
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
+			accountDAO.delete(account1);
+			System.out.println(account1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 		return account1;
 	}
@@ -293,147 +287,127 @@ public class DuopolyApplication {
 		return player1;
 	}
 
-	@GetMapping("/updateDead/{gameId}/{userId}")
-	public PlayerUtil updateCash(@PathVariable("gameId") int gameId,
-								 @PathVariable("userId") int userId) {
-		System.out.println(userId);
+	@PostMapping("/updateDead")
+	public PlayerUtil updateDead(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
 		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-                "duopoly", "postgres", "password");
+				"duopoly", "postgres", "password");
 		PlayerUtil player1 = new PlayerUtil();
-		player1.setGameId(gameId);
-		player1.setUserId(userId);
-		try {
-            Connection connection = dcm.getConnection();
-            PlayerDAO playerDAO = new PlayerDAO(connection);
 
-			
+		try {
+			Connection connection = dcm.getConnection();
+			PlayerDAO playerDAO = new PlayerDAO(connection);
+			player1.setUserId(Integer.valueOf(inputMap.get("user_id")));
+			player1.setGameId(Integer.valueOf(inputMap.get("game_id")));
 			player1 = playerDAO.findById(player1);
 			playerDAO.update(player1);
-			player1 = playerDAO.findById(player1);
-            System.out.println(player1);
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
+			System.out.println(player1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 		return player1;
 	}
 
-	@GetMapping("/updateCash/{gameId}/{userId}/{cash}")
-	public PlayerUtil updateCash(@PathVariable("gameId") int gameId,
-								 @PathVariable("userId") int userId,
-								 @PathVariable("cash") int cash) {
-		System.out.println(userId);
+	@PostMapping("/updateCash")
+	public PlayerUtil updateCash(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
 		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-                "duopoly", "postgres", "password");
+				"duopoly", "postgres", "password");
 		PlayerUtil player1 = new PlayerUtil();
-		player1.setGameId(gameId);
-		player1.setUserId(userId);
-		try {
-            Connection connection = dcm.getConnection();
-            PlayerDAO playerDAO = new PlayerDAO(connection);
 
+		try {
+			Connection connection = dcm.getConnection();
+			PlayerDAO playerDAO = new PlayerDAO(connection);
+			player1.setUserId(Integer.valueOf(inputMap.get("user_id")));
+			player1.setGameId(Integer.valueOf(inputMap.get("game_id")));
 			player1 = playerDAO.findById(player1);
-			playerDAO.updateCash(player1, cash);
-            System.out.println(player1);
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
+			playerDAO.update_cash(player1, Integer.valueOf(inputMap.get("profit")));
+			System.out.println(player1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 		return player1;
 	}
 
-	@GetMapping("/updateDir/{gameId}/{userId}/{dir}")
-	public PlayerUtil updateDir(@PathVariable("gameId") int gameId,
-								 @PathVariable("userId") int userId,
-								 @PathVariable("dir") String dir) {
-		System.out.println(userId);
+	@PostMapping("/updateJail")
+	public PlayerUtil updateJail(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
 		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-                "duopoly", "postgres", "password");
+				"duopoly", "postgres", "password");
 		PlayerUtil player1 = new PlayerUtil();
-		player1.setGameId(gameId);
-		player1.setUserId(userId);
+
 		try {
-            Connection connection = dcm.getConnection();
-            PlayerDAO playerDAO = new PlayerDAO(connection);
-			
+			Connection connection = dcm.getConnection();
+			PlayerDAO playerDAO = new PlayerDAO(connection);
+			player1.setUserId(Integer.valueOf(inputMap.get("user_id")));
+			player1.setGameId(Integer.valueOf(inputMap.get("game_id")));
 			player1 = playerDAO.findById(player1);
-			playerDAO.updateDirection(player1, dir);
-            System.out.println(player1);
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
+			playerDAO.update_jail(player1, Boolean.valueOf(inputMap.get("jail")));
+			System.out.println(player1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 		return player1;
 	}
 
-	@GetMapping("/updateJail/{gameId}/{userId}/{jail}")
-	public PlayerUtil updateJail(@PathVariable("gameId") int gameId,
-								 @PathVariable("userId") int userId,
-								 @PathVariable("jail") boolean jail) {
-		System.out.println(userId);
+	@PostMapping("/updateAfk")
+	public PlayerUtil updateAfk(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
 		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-                "duopoly", "postgres", "password");
+				"duopoly", "postgres", "password");
 		PlayerUtil player1 = new PlayerUtil();
-		player1.setGameId(gameId);
-		player1.setUserId(userId);
+
 		try {
-            Connection connection = dcm.getConnection();
-            PlayerDAO playerDAO = new PlayerDAO(connection);
-			
+			Connection connection = dcm.getConnection();
+			PlayerDAO playerDAO = new PlayerDAO(connection);
+			player1.setUserId(Integer.valueOf(inputMap.get("user_id")));
+			player1.setGameId(Integer.valueOf(inputMap.get("game_id")));
 			player1 = playerDAO.findById(player1);
-			playerDAO.updateJail(player1, jail);
-            System.out.println(player1);
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
+			playerDAO.update_afk(player1, Boolean.valueOf(inputMap.get("afk")));
+			System.out.println(player1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 		return player1;
 	}
 
-	@GetMapping("/updateAfk/{gameId}/{userId}/{afk}")
-	public PlayerUtil updateAfk(@PathVariable("gameId") int gameId,
-								 @PathVariable("userId") int userId,
-								 @PathVariable("afk") boolean afk) {
-		System.out.println(userId);
+	@PostMapping("/updatePos")
+	public PlayerUtil updatePos(@RequestBody String json) throws JsonProcessingException
+	{
+		System.out.println(json);
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
 		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-                "duopoly", "postgres", "password");
+				"duopoly", "postgres", "password");
 		PlayerUtil player1 = new PlayerUtil();
-		player1.setGameId(gameId);
-		player1.setUserId(userId);
-		try {
-            Connection connection = dcm.getConnection();
-            PlayerDAO playerDAO = new PlayerDAO(connection);
-			
-			player1 = playerDAO.findById(player1);
-			playerDAO.updateAfk(player1, afk);
-            System.out.println(player1);
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
-		}
-		return player1;
-	}
 
-	@GetMapping("/updatePos/{gameId}/{userId}/{pos}")
-	public PlayerUtil updatePos(@PathVariable("gameId") int gameId,
-								 @PathVariable("userId") int userId,
-								 @PathVariable("pos") int pos) {
-		System.out.println(userId);
-		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
-                "duopoly", "postgres", "password");
-		PlayerUtil player1 = new PlayerUtil();
-		player1.setGameId(gameId);
-		player1.setUserId(userId);
 		try {
-            Connection connection = dcm.getConnection();
-            PlayerDAO playerDAO = new PlayerDAO(connection);
-			
+			Connection connection = dcm.getConnection();
+			PlayerDAO playerDAO = new PlayerDAO(connection);
+			player1.setUserId(Integer.valueOf(inputMap.get("user_id")));
+			player1.setGameId(Integer.valueOf(inputMap.get("game_id")));
 			player1 = playerDAO.findById(player1);
-			playerDAO.updatePosition(player1, pos);
-            System.out.println(player1);
-        }
-        catch(SQLException e) {
-            e.printStackTrace();
+			playerDAO.update_position(player1, Integer.valueOf(inputMap.get("move_to")));
+			System.out.println(player1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
 		}
 		return player1;
 	}
@@ -442,5 +416,7 @@ public class DuopolyApplication {
 		SpringApplication.run(DuopolyApplication.class, args);
 	}
 }
+
+
 // Plan of Attack
 // Initalize Players and Can do a couple of turns. We just do it on postman and write a script then it seems like we may be done???

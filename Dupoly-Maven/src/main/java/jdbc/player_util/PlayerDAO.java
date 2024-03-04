@@ -84,7 +84,7 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil>
         }
     }
 
-    public void updateCash(PlayerUtil dto, int newAmount) 
+    public void update_cash(PlayerUtil dto, int newAmount) 
     {
         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_CASH);)
         {
@@ -100,7 +100,7 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil>
         }
     }
 
-    public void updateDirection(PlayerUtil dto, String direction)
+    public void update_direction(PlayerUtil dto, String direction)
     {
         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_DIR);)
         {
@@ -116,7 +116,7 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil>
         }
     }
 
-    public void updateJail(PlayerUtil dto, boolean yes)
+    public void update_jail(PlayerUtil dto, boolean yes)
     {
         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_JAIL);)
         {
@@ -132,7 +132,7 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil>
         }
     }
 
-    public void updateAfk(PlayerUtil dto, boolean yes)
+    public void update_afk(PlayerUtil dto, boolean yes)
     {
         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_AFK);)
         {
@@ -148,7 +148,7 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil>
         }
     }
     
-    public void updatePosition(PlayerUtil dto, int move) // update_position
+    public void update_position(PlayerUtil dto, int move) // update_position
     {
          try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_POS);)
         {
