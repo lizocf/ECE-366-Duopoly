@@ -6,13 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-public class PlayerDAO extends DataAccessObject<PlayerUtil> {
-
+public class PlayerDAO extends DataAccessObject<PlayerUtil>
+{
         public PlayerDAO(Connection connection) {
             super(connection);
         }
 
-    private static final String GET_ONE = "SELECT ? " +
+    private static final String GET_ONE = "SELECT game_id, user_id, cash, current_direction, current_position, jail, afk, dead " +
             "FROM player_in_game WHERE game_id=? AND user_id=?";
 
     private static final String INSERT = "INSERT INTO player_in_game(game_id, user_id)"
@@ -23,18 +23,17 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil> {
 
     private static final String DELETE = "DELETE FROM player_in_game " + " WHERE (game_id, user_id) = (?,?)";
 
-    // Same conceptual issue as OwnedPropertyDao's findById
-    // The primary keys for  table are both id's -- need to take in both userId and gameId
     @Override
     public PlayerUtil findById(PlayerUtil dto) {
         PlayerUtil player = new PlayerUtil();
         try(PreparedStatement statement = this.connection.prepareStatement(GET_ONE);)
         {
-
-            statement.setInt(1, dto.getUserId());
+            statement.setInt(1, dto.getGameId());
+            statement.setInt(2, dto.getUserId());
             ResultSet rs = statement.executeQuery();
 
             while(rs.next()) {
+                player.setGameId(rs.getInt("game_id"));
                 player.setUserId(rs.getInt("user_id")); // need userId as another search parameter instead
                 player.setCash(rs.getInt("cash"));
                 player.setCurrentDirection(rs.getString("current_direction"));

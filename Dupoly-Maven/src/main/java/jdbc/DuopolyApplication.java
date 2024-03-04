@@ -13,6 +13,7 @@ import java.util.Map;
 
 import jdbc.game_util.GameDAO;
 import jdbc.game_util.GameUtil;
+import jdbc.player_util.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -240,6 +241,27 @@ public class DuopolyApplication {
 		return newGame;
 	}
 
+	@GetMapping("/getPlayerInGame/{gameId}/{userId}")
+	public PlayerUtil getPlayerInGame(@PathVariable("gameId") int gameId,
+								  @PathVariable("userId") int userId) {
+		System.out.println(gameId);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+				"duopoly", "postgres", "password");
+		PlayerUtil player1 = new PlayerUtil();
+		player1.setGameId(gameId);
+		player1.setUserId(userId);
+		try {
+			Connection connection = dcm.getConnection();
+			PlayerDAO playerDAO = new PlayerDAO(connection);
+
+			player1 = playerDAO.findById(player1);
+			System.out.println(player1);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return player1;
+	}
 
 
 	public static void main(String[] args) {
