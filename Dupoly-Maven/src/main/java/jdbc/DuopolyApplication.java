@@ -460,8 +460,56 @@ public class DuopolyApplication {
 			e.printStackTrace();
 		}
 	}
+
+	@PostMapping("/updateDebtPot")
+	public void updateDebtPot(@RequestBody String json) throws JsonProcessingException
+	{
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+				"duopoly", "postgres", "password");
+		GameUtil game = new GameUtil();
+		try
+		{
+			Connection connection = dcm.getConnection();
+			GameDAO gameDAO = new GameDAO(connection);
+			// game.setGameId(Integer.valueOf(inputMap.get("game_id")));
+			game.setGameCode(inputMap.get("game_code"));
+			game = gameDAO.findById(game);
+			gameDAO.updateDebtPot(game);
+			System.out.println(game);
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+//	@PostMapping("/updatePlayerTurn")
+//	public void updatePlayerPos(@RequestBody String json) throws JsonProcessingException
+//	{
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+//		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+//				"duopoly", "postgres", "password");
+//		GameUtil game = new GameUtil();
+//		try
+//		{
+//			Connection connection = dcm.getConnection();
+//			GameDAO gameDAO = new GameDAO(connection);
+//			game.setGameId(Integer.valueOf(inputMap.get("game_id")));
+//			game = gameDAO.findById(game);
+//
+//		}
+//		catch(SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
+
 	
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		SpringApplication.run(DuopolyApplication.class, args);
 	}
 }
