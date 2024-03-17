@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hexagonal Board</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #222246;
+    }
+    .button-overlay {
+        position: relative;
+        display: inline-block;
+    }
+
+    .button-overlay button {
+        position: absolute;
+        top: 28%;
+        left: 21%;
+        transform: translate(-50%, -50%);
+        padding: 10px 10px;
+        background-color: #157f8700;
+        /* color: #fff; */
+        border-radius: 5px;
+    }
+
+    .sidenav {
+        height: 100%; /* Full-height: remove this if you want "auto" height */
+        width: 10%; /* Set the width of the sidebar */
+        position: absolute; /* Fixed Sidebar (stay in place on scroll) */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        background-color: #111; /* Black */
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 20px;
+    }
+
+    .main {
+        margin-left: 160px; /* Same as the width of the sidebar */
+        padding: 0px 10px;
+    }
+
+    /* .button-overlay button:hover {
+        background-color: #1baeb800;
+    } */
+        /* .hex-container {
+        position: relative;
+        width: 600px; /* Adjust the width as needed 
+        height: 520px; /* Adjust the height as needed
+    }
+
+    .hex {
+        position: absolute;
+        width: 700px; /* Adjust the size as needed 
+        height: 750px; /* Adjust the size as needed 
+        background-color: #1f3f54;
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        margin-top: -100px; /* Half of the height 
+        margin-left: -50px; /* Half of the width 
+    }
+
+    .hex:nth-child(odd) {
+        left: calc(100px * var(--x));
+        top: calc(90px * var(--y));
+    }
+
+    .hex:nth-child(even) {
+        left: calc(100px * var(--x) + 50px);
+        top: calc(90px * var(--y) + 45px);
+    } */
+</style>
+</head>
+<body>
+<div class="button-overlay">
+    <img src="images/board_canva.png" alt="board">
+    <button>  </button>
+</div>
+<!-- Side navigation -->
+<div class="sidenav">
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+  </div>
+  
+  <!-- Page content -->
+  <div class="main">
+    ...
+  </div>
+
+</body>
+</html>

@@ -27,5 +27,10 @@ services:
       - 8080:8080
     depends_on:
       - db
+  ui:
+    build: .
+    ports:
+      - 3000:3000
+    
 
   #  psql -h localhost -U postgres -d test -f database/create.sh 
