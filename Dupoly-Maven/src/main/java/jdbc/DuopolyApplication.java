@@ -242,26 +242,48 @@ public class DuopolyApplication {
 
 // PlayerDAO stuff //
 	@GetMapping("/getPlayerInGame/{gameId}/{userId}")
-	public PlayerUtil getPlayerInGame(@PathVariable("gameId") int gameId,
-								  @PathVariable("userId") int userId) {
+		public PlayerUtil getPlayerInGame(@PathVariable("gameId") int gameId,
+									@PathVariable("userId") int userId) {
+			System.out.println(gameId);
+			DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+					"duopoly", "postgres", "password");
+			PlayerUtil player1 = new PlayerUtil();
+			player1.setGameId(gameId);
+			player1.setUserId(userId);
+			try {
+				Connection connection = dcm.getConnection();
+				PlayerDAO playerDAO = new PlayerDAO(connection);
+
+				player1 = playerDAO.findById(player1);
+				System.out.println(player1);
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			return player1;
+		}
+
+	@GetMapping("/getAllPlayersInGame/{gameId}")
+	public PlayerUtil[] getAllPlayersInGame(@PathVariable("gameId") int gameId) {
 		System.out.println(gameId);
 		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
 				"duopoly", "postgres", "password");
 		PlayerUtil player1 = new PlayerUtil();
+		PlayerUtil[] players = new PlayerUtil[10];
 		player1.setGameId(gameId);
-		player1.setUserId(userId);
 		try {
 			Connection connection = dcm.getConnection();
 			PlayerDAO playerDAO = new PlayerDAO(connection);
 
-			player1 = playerDAO.findById(player1);
-			System.out.println(player1);
+			players = playerDAO.findByGameId(player1);
+			System.out.println(players);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return player1;
+		return players;
 	}
+
 
 	@PostMapping("/createPlayerInGame")
 	public PlayerUtil createPlayerInGame(@RequestBody String json) throws JsonProcessingException

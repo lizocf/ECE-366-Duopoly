@@ -14,6 +14,9 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil>
 
     private static final String GET_ONE = "SELECT game_id, user_id, cash, current_direction, current_position, jail, afk, dead " +
             "FROM player_in_game WHERE game_id=? AND user_id=?";
+    
+    private static final String GET_GAME = "SELECT game_id, user_id, cash, current_direction, current_position, jail, afk, dead " +
+            "FROM player_in_game WHERE game_id=?";
 
     private static final String INSERT = "INSERT INTO player_in_game(game_id, user_id)"
             + " VALUES (?,?)";
@@ -53,6 +56,45 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil>
             throw new RuntimeException(e);
         }
         return player;
+    }
+
+    public PlayerUtil[] findByGameId(PlayerUtil dto) {
+        PlayerUtil[] players = new PlayerUtil[8];
+        try(PreparedStatement statement = this.connection.prepareStatement(GET_GAME);)
+        {
+            statement.setInt(1, dto.getGameId());
+            ResultSet rs = statement.executeQuery();
+            int i = 0;
+            System.out.println("game_id\t\tuser_id\t\tcash\t\tcurrent_direction\t\tcurrent_position\t\tjail\t\tafk\t\tdead");
+
+            while(rs.next()) {
+                int game_id = rs.getInt("game_id");
+                int user_id = rs.getInt("user_id");
+                int cash = rs.getInt("cash");
+                String cur_dir = rs.getString("current_direction");
+                int cur_pos = rs.getInt("current_position");
+                boolean jail = rs.getBoolean("jail");
+                boolean afk = rs.getBoolean("afk");
+                boolean dead = rs.getBoolean("dead");
+                System.out.println(game_id + "\t\t" + user_id + "\t\t" + cash + 
+                                   "\t\t" + cur_dir + "\t\t" + cur_pos + "\t\t" + jail + 
+                                   "\t\t" + afk + "\t\t" + dead);
+                players[i] = new PlayerUtil();
+                players[i].setGameId(game_id);
+                players[i].setUserId(user_id);
+                players[i].setCash(cash);
+                players[i].setCurrentDirection(cur_dir);
+                players[i].setCurrentPosition(cur_pos);
+                players[i].setJail(jail);
+                players[i].setAfk(afk);
+                players[i].setDead(dead);
+                ++i;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return players;
     }
 
     @Override
