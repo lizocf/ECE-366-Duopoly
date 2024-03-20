@@ -3,13 +3,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-    const [data, setData] = useState(null);
-    useEffect(() => {
-        const loadUsers = async () => {
-          const response = await axios.get(`http://localhost:8080/getUserName/mudkip`);
+    const [data, setData] = useState([]);
+    const loadUsers = async () => {
+          const response = await axios.get(`http://localhost:8080/getAllPlayersInGame/1`);
           setData(response.data)
         }
-        loadUsers();
+        useEffect(() => {
+            loadUsers();
     }, []);
     if (data)
         return (

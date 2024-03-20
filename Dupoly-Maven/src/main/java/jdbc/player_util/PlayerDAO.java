@@ -94,6 +94,7 @@ public class PlayerDAO extends DataAccessObject<PlayerUtil>
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+        
         return players;
     }
 

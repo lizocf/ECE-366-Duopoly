@@ -28,7 +28,7 @@ services:
     depends_on:
       - db
   ui:
-    build: .
+    build: duopoly/.
     ports:
       - 3000:3000
     
