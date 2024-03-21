@@ -1,24 +1,38 @@
 import "./App.css";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import {Component } from "react";
+import PlayerTable from "./components/playertable";
 
-function App() {
-    const [data, setData] = useState([]);
-    const loadUsers = async () => {
-          const response = await axios.get(`http://localhost:8080/getAllPlayersInGame/1`);
-          setData(response.data)
-        }
-        useEffect(() => {
-            loadUsers();
-    }, []);
-    if (data)
+
+// function App() {
+//     const [data, setData] = useState([]);
+//     const loadUsers = async () => {
+//           const response = await axios.get(`http://localhost:8080/getAllPlayersInGame/1`);
+//           setData(response.data)
+//         }
+//         useEffect(() => {
+//             loadUsers();
+//     }, []);
+//     if (data)
+//         return (
+//             <pre>{JSON.stringify(data, null, 2)}</pre>
+//         );
+//     return <h1>Data</h1>;
+// }
+
+class App extends Component {
+    render() {
         return (
-            <pre>{JSON.stringify(data, null, 2)}</pre>
-        );
-    return <h1>Data</h1>;
+            <>
+                <PlayerTable />
+            </>
+        )
+    }
 }
+  
 
 export default App;
+
+
 
 // function Home() {
 //   const [data, setData] = useState(null);
