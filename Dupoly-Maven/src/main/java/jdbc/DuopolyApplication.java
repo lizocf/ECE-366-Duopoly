@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootApplication
 @RestController
+@CrossOrigin
 public class DuopolyApplication {
 
 	Board gb = new Board();
@@ -264,7 +265,7 @@ public class DuopolyApplication {
 			}
 			return player1;
 		}
-	@CrossOrigin
+	
 	@GetMapping("/getAllPlayersInGame/{gameId}")
 	public PlayerUtil[] getAllPlayersInGame(@PathVariable("gameId") int gameId) {
 		System.out.println(gameId);
