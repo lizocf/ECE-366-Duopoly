@@ -3,7 +3,7 @@ import { useState, useEffect} from "react";
 import axios from "axios";
 import "../style.css";
 
-const PlayerTable = () => {
+const TransTable = () => {
     const [players, setPlayers] = useState([]);
     useEffect(() => {
         const loadPlayers = async () => {
@@ -17,15 +17,11 @@ const PlayerTable = () => {
         loadPlayers();
     }, []);
 
-// insert getUserName/{userId} function to find usernames
-
-// add user icons into table
-
     return (
       <>
-        <main className="player-table" id="player_table">
+        <main className="trans-table" id="transactions">
             <section className="table__body">
-            <h1>Players</h1>
+            <h1>Transactions</h1>
                 <table>
                     <tbody>
                         {players.map((player, index) => (
@@ -43,4 +39,4 @@ const PlayerTable = () => {
   }
 
 
-  export default PlayerTable
+  export default TransTable
