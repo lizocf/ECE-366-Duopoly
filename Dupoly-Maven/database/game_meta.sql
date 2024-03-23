@@ -7,6 +7,7 @@ CREATE TABLE game_meta (
     num_players int DEFAULT 0,
     num_turns int DEFAULT 0, -- ????
     debt_pot int DEFAULT 0,
+    roll_number int DEFAULT 0,
     PRIMARY KEY (game_id),
     FOREIGN KEY (which_player_turn) REFERENCES accounts(user_id)
 );
