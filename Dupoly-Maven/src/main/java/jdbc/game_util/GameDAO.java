@@ -25,13 +25,10 @@ public class GameDAO extends DataAccessObject<GameUtil>
             " VALUES (?)";
 
     private static final String UPDATE = "UPDATE game_meta " + "SET ? = ? " + " WHERE ? ";
-    private static final String UPDATE_DEBT = "UPDATE game_meta " + "SET debt_pot = ? WHERE game_id = ? ";    
-    private static final String UPDATE_JOIN = "UPDATE game_meta " + "SET joinable = ? WHERE game_id = ? ";      
-    private static final String UPDATE_TURN = "UPDATE game_meta " + "SET which_player_turn = ?  WHERE game_id = ? ";
-
+    private static final String UPDATE_DEBT = "UPDATE game_meta " + "SET debt_pot = ? WHERE game_code = ? ";
+    private static final String UPDATE_JOIN = "UPDATE game_meta " + "SET joinable = ? WHERE game_code = ? ";
+    private static final String UPDATE_TURN = "UPDATE game_meta " + "SET which_player_turn = ?  WHERE game_code = ? ";
     private static final String UPDATE_ROLL = "UPDATE game_meta " + "SET roll_number = ?  WHERE game_code = ? ";
-
-
 
 
     private static final String DELETE = "DELETE FROM game_meta WHERE game_id = ?";
@@ -96,7 +93,7 @@ public class GameDAO extends DataAccessObject<GameUtil>
     }
 
 
-    public void updateDebtPot(GameUtil dto) {
+    public void update_debt_pot(GameUtil dto) {
         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_DEBT);)
         {
             // statement.setString(1,"debt_pot");
@@ -110,7 +107,7 @@ public class GameDAO extends DataAccessObject<GameUtil>
         }
     }
 
-    public void updateJoinable(GameUtil dto) {
+    public void update_joinable(GameUtil dto) {
         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_JOIN);)
         {
             statement.setBoolean(1,false);
@@ -123,7 +120,7 @@ public class GameDAO extends DataAccessObject<GameUtil>
         }
     }
 
-    // might need to pass in a player dto
+    // Not sure about this one neecs to be looked into
     public void updatePlayerTurn(GameUtil dto) {
         try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_TURN);)
         {
@@ -149,27 +146,6 @@ public class GameDAO extends DataAccessObject<GameUtil>
             throw new RuntimeException(e);
         }
     }
-
-//private static final String UPDATE_CASH = "UPDATE player_in_game " + "SET cash = ? " + "WHERE user_id = ?";
-
-
-//    public void update_cash(PlayerUtil dto, int newAmount)
-//    {
-//        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_CASH);)
-//        {
-//            // statement.setString(1,"cash");
-//            statement.setInt(1,(dto.getCash() + newAmount)); // can I get the current value then just add 50?
-//            // statement.setInt(3,dto.getGameId());
-//            statement.setInt(2,dto.getUserId());
-//            statement.execute();
-//
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-
 
     // idk what to return here. Maybe it should be void.
     @Override
