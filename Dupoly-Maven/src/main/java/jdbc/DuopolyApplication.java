@@ -16,7 +16,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.*;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -27,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootApplication
 @RestController
 @Import({SpringBootTest.class, Account.class, Player.class})
+@CrossOrigin
 public class DuopolyApplication {
 
 	Board gb = new Board();
@@ -36,7 +36,6 @@ public class DuopolyApplication {
 	{
 		System.out.println("TESTING 123");
 		return "d";
-
 	}
 
 	@PostMapping("/createNewGame")
@@ -61,28 +60,26 @@ public class DuopolyApplication {
 		}
 		return newGame;
 	}
-
-	@PostMapping("/updateDebtPot")
-	public void updateDebtPot(@RequestBody String json) throws JsonProcessingException
-	{
-		ObjectMapper objectMapper = new ObjectMapper();
-		Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+	
+	@GetMapping("/getAllPlayersInGame/{gameId}")
+	public PlayerUtil[] getAllPlayersInGame(@PathVariable("gameId") int gameId) {
+		System.out.println(gameId);
 		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
 				"duopoly", "postgres", "password");
-		GameUtil game = new GameUtil();
-		try
-		{
+		PlayerUtil player1 = new PlayerUtil();
+		PlayerUtil[] players = new PlayerUtil[10];
+		player1.setGameId(gameId);
+		try {
 			Connection connection = dcm.getConnection();
-			GameDAO gameDAO = new GameDAO(connection);
-			// game.setGameId(Integer.valueOf(inputMap.get("game_id")));
-			game.setGameCode(inputMap.get("game_code"));
-			game = gameDAO.findById(game);
-			gameDAO.updateDebtPot(game);
-			System.out.println(game);
+			PlayerDAO playerDAO = new PlayerDAO(connection);
+
+			players = playerDAO.findByGameId(player1);
+			System.out.println(players);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
+		return players;
 	}
 
 	@GetMapping("/gameMove")
@@ -104,10 +101,6 @@ public class DuopolyApplication {
 		}
 	}
 
-
 	public static void main(String[] args) { SpringApplication.run(DuopolyApplication.class, args); }
+
 }
-
-
-// Plan of Attack
-// Initalize Players and Can do a couple of turns. We just do it on postman and write a script then it seems like we may be done???
