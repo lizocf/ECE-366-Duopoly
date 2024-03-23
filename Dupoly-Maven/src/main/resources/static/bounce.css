@@ -1,0 +1,35 @@
+body {
+    font: 1em sans-serif;
+    text-align: center;
+}
+.stage {
+    border-bottom: 3px solid #444;
+    display: flex;
+    height: 330px;
+    width: 100%;
+}
+.box {
+    align-self: flex-end;
+    animation: bounce-7 steps(3) infinite;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    background-color: #F44336;
+    height: 200px;
+    margin: 0 auto 0 auto;
+    transform-origin: bottom;
+    width: 200px;
+}
+.bounce-7 {
+    animation-name: bounce-7;
+    animation-timing-function: cubic-bezier(0.280, 0.840, 0.420, 1);
+    transform: scale(1,1)      translateY(0) translateX(100px); 
+}
+@keyframes bounce-7 {
+    0%   { transform: scale(1,1)      translateY(0); }
+    10%  { transform: scale(1.1,.9)   translateY(0);}
+    30%  { transform: scale(.9,1.1)   translateY(-100px)    translateX(100px); }
+    50%  { transform: scale(1.05,.95) translateY(0)         translateX(100px); }
+    57%  { transform: scale(1,1)      translateY(-7px)      translateX(100px); }
+    64%  { transform: scale(1,1)      translateY(0)         translateX(100px); }
+    100% { transform: scale(1,1)      translateY(0)         translateX(100px); }
+}

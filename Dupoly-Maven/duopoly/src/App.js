@@ -3,6 +3,7 @@ import "./style.css";
 import {Component } from "react";
 import PlayerTable from "./components/playertable";
 import TransTable from "./components/transtable";
+import UpdateDirection from "./components/direction";
 
 
 // function App() {
@@ -25,9 +26,10 @@ class App extends Component {
     render() {
         return (
             <>
-            <div class="container_right">
+            <div className="container_right">
                 <PlayerTable />
                 <TransTable />
+                <UpdateDirection />
             </div>
             </>
         )
