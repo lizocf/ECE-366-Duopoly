@@ -1,10 +1,16 @@
 package jdbc.game_util;
 import jdbc.jdbc_util.DataAccessObject;
+import jdbc.player_util.PlayerUtil;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+
 
 public class GameDAO extends DataAccessObject<GameUtil>
 {
@@ -21,7 +27,11 @@ public class GameDAO extends DataAccessObject<GameUtil>
     private static final String UPDATE = "UPDATE game_meta " + "SET ? = ? " + " WHERE ? ";
     private static final String UPDATE_DEBT = "UPDATE game_meta " + "SET debt_pot = ? WHERE game_id = ? ";    
     private static final String UPDATE_JOIN = "UPDATE game_meta " + "SET joinable = ? WHERE game_id = ? ";      
-    private static final String UPDATE_TURN = "UPDATE game_meta " + "SET which_player_turn = ?  WHERE game_id = ? "; 
+    private static final String UPDATE_TURN = "UPDATE game_meta " + "SET which_player_turn = ?  WHERE game_id = ? ";
+
+    private static final String UPDATE_ROLL = "UPDATE game_meta " + "SET roll_number = ?  WHERE game_code = ? ";
+
+
 
 
     private static final String DELETE = "DELETE FROM game_meta WHERE game_id = ?";
@@ -50,6 +60,8 @@ public class GameDAO extends DataAccessObject<GameUtil>
         }
         return game;
     }
+
+
 
     @Override
     public GameUtil createInstance(GameUtil dto) {
@@ -124,6 +136,40 @@ public class GameDAO extends DataAccessObject<GameUtil>
             throw new RuntimeException(e);
         }
     }
+
+    public void update_dice_roll(GameUtil dto) {
+        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_ROLL);)
+        {
+            statement.setInt(1,dto.rollDice());
+            statement.setString(2,dto.getGameCode());
+            statement.execute();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+//private static final String UPDATE_CASH = "UPDATE player_in_game " + "SET cash = ? " + "WHERE user_id = ?";
+
+
+//    public void update_cash(PlayerUtil dto, int newAmount)
+//    {
+//        try(PreparedStatement statement = this.connection.prepareStatement(UPDATE_CASH);)
+//        {
+//            // statement.setString(1,"cash");
+//            statement.setInt(1,(dto.getCash() + newAmount)); // can I get the current value then just add 50?
+//            // statement.setInt(3,dto.getGameId());
+//            statement.setInt(2,dto.getUserId());
+//            statement.execute();
+//
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+
 
     // idk what to return here. Maybe it should be void.
     @Override
