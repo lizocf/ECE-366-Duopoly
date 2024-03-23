@@ -13,9 +13,6 @@ class Property implements Space {
     public String propertyName, setName;
     // OwnedPropertyDAO propertyDAO;
 
-
-
-
     public Property(int costPrice, int buildingCostPrice, int rentPrice, int hotelRentPrice,String propname,String setname)
     {
         baseCost = costPrice;
@@ -46,10 +43,10 @@ class Property implements Space {
         {
             //ask user if they want to purchase
             Scanner scanner = new Scanner(System.in);
-            System.out.print("Would you like to purchase[Yes/No]:  Yes");
-            // String s = scanner.nextLine();
+            System.out.print("Would you like to purchase[Yes/No]: ");
+            String s = scanner.nextLine();
 
-            if (true)
+            if (s.equals("Yes"))
             {
 
                 // update database (user has purchased a valid property)
@@ -87,6 +84,10 @@ class Property implements Space {
 
     }
 }
+
+
+
+
 
 //Logic to determine if they have set?
 //Determine if houses are built or not and how many(how many is in the database)

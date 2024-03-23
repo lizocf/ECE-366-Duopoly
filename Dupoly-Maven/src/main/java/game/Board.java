@@ -20,17 +20,9 @@ public class Board {
         // Hardcoded for now but maybe we eventualy put these in a yaml file
         // the format is .add(probability percentage, "card name")
         // call specialPB.next() to draw a card. This gets passed in to the SkullCard.onUSe function AHHHH THIS MIGHT WORK
-        WeightedProbModel<Object> skullPB = new WeightedProbModel<>()
-                .add(40, "Card 1")
-                .add(35, "Card 2")
-                .add(25, "Card 3")
-                .add(25, "Card 4");
 
-        WeightedProbModel<Object> specialPB = new WeightedProbModel<>()
-                .add(40, "Card 1")
-                .add(35, "Card 2")
-                .add(25, "Card 3")
-                .add(25, "Card 4");
+
+
 
         gameBoard = new Space[60];
         lookup = new HashMap<Integer,String>();

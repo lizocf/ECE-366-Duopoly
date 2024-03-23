@@ -1,16 +1,26 @@
 package game;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import jdbc.DatabaseConnectionManager;
+import jdbc.account_util.AccountDAO;
+import jdbc.account_util.AccountUtil;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
+import org.springframework.web.bind.annotation.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
 
 // For player we might have to call the util functions intself or something
 
-
-// ISSUE: YOU ARE TRYING TO USE AN INTERFACE AS A CLASS. THIS IS NOT
-// HOW AN ABSTRACT CLASS IS IMPLEMENTED.
+//@SpringBootApplication
+//@RestController
+@CrossOrigin
 public class Account{
     public int user_id, num_wins, num_losses, elo_rating, duo_points;
     public int user_name;
-    private
-    String password;
 //    public Account(int user_id, int num_wins, int num_losses, int elo_rating, int duo_points, String[] user_name, String[] password) {
 //        this.user_id = user_id;
 //        this.num_wins = num_wins;
@@ -20,6 +30,180 @@ public class Account{
 //        this.user_name = user_name;
 //        this.password = password;
 //    }
+
+
+    @GetMapping("/accountTest")
+    public String accountTest()
+    {
+        System.out.println("ACCOUNT TESTING 123");
+        return "account springboot!";
+
+    }
+
+    @GetMapping("/getUserName/{userName}")
+    public AccountUtil getUserName(@PathVariable("userName") String userName) {
+        System.out.println(userName);
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+        AccountUtil account = new AccountUtil();
+        account.setUserName(userName);
+        try {
+            Connection connection = dcm.getConnection();
+            AccountDAO accountDAO = new AccountDAO(connection);
+
+            account = accountDAO.findById(account);
+            System.out.println(account);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
+
+    @PostMapping("/createNewAccount")
+    public AccountUtil createNewAccount(@RequestBody String json) throws JsonProcessingException
+    {
+        System.out.println(json);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+        AccountUtil newAccount = new AccountUtil();
+
+        try {
+            Connection connection = dcm.getConnection();
+            AccountDAO accountDAO = new AccountDAO(connection);
+            newAccount.setUserName(inputMap.get("user_name"));
+
+            newAccount = accountDAO.createInstance(newAccount);
+            System.out.println(newAccount);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return newAccount;
+    }
+
+    @PostMapping("/updateWins")
+    public AccountUtil updateWins(@RequestBody String json) throws JsonProcessingException
+    {
+        System.out.println(json);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+        AccountUtil account = new AccountUtil();
+
+        try {
+            Connection connection = dcm.getConnection();
+            AccountDAO accountDAO = new AccountDAO(connection);
+            account.setUserName(inputMap.get("user_name"));
+            account = accountDAO.findById(account);
+            accountDAO.update(account);
+            System.out.println(account);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
+    @PostMapping("/updateLoss")
+    public AccountUtil updateLoss(@RequestBody String json) throws JsonProcessingException
+    {
+        System.out.println(json);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+        AccountUtil account = new AccountUtil();
+
+        try {
+            Connection connection = dcm.getConnection();
+            AccountDAO accountDAO = new AccountDAO(connection);
+            account.setUserName(inputMap.get("user_name"));
+            account = accountDAO.findById(account);
+            accountDAO.update_loss(account);
+            System.out.println(account);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
+    @PostMapping("/updateDP")
+    public AccountUtil updateDP(@RequestBody String json) throws JsonProcessingException
+    {
+        System.out.println(json);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+        AccountUtil account = new AccountUtil();
+
+        try {
+            Connection connection = dcm.getConnection();
+            AccountDAO accountDAO = new AccountDAO(connection);
+            account.setUserName(inputMap.get("user_name"));
+            account = accountDAO.findById(account);
+            accountDAO.update_dp(account, Integer.valueOf(inputMap.get("duo_points")));
+            System.out.println(account);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
+    @PostMapping("/updateElo")
+    public AccountUtil updateElo(@RequestBody String json) throws JsonProcessingException
+    {
+        System.out.println(json);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+        AccountUtil account = new AccountUtil();
+
+        try {
+            Connection connection = dcm.getConnection();
+            AccountDAO accountDAO = new AccountDAO(connection);
+            account.setUserName(inputMap.get("user_name"));
+            account = accountDAO.findById(account);
+            accountDAO.update_elo(account, inputMap.get("elo"));
+            System.out.println(account);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
+
+    @PostMapping("/deleteAccount")
+    public AccountUtil deleteAcc(@RequestBody String json) throws JsonProcessingException
+    {
+        System.out.println(json);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map <String, String> inputMap = objectMapper.readValue(json, Map.class);
+        DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+                "duopoly", "postgres", "password");
+        AccountUtil account = new AccountUtil();
+
+        try {
+            Connection connection = dcm.getConnection();
+            AccountDAO accountDAO = new AccountDAO(connection);
+            account.setUserName(inputMap.get("user_name"));
+            account = accountDAO.findById(account);
+            accountDAO.delete(account);
+            System.out.println(account);
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return account;
+    }
 
     public int getUser_id() {
         return user_id;
@@ -67,13 +251,5 @@ public class Account{
 
     public void setUser_name(int user_name) {
         this.user_name = user_name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

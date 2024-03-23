@@ -6,6 +6,12 @@ import java.util.Map;
 
 
 public class SpecialCard implements Card,Space {
+
+    WeightedProbModel<Object> specialPB = new WeightedProbModel<>()
+            .add(40, "Card 1")
+            .add(35, "Card 2")
+            .add(25, "Card 3")
+            .add(25, "Card 4");
     // public String cardName;
     Map<String, OnCard> cardMap = new HashMap<>();
 
@@ -56,11 +62,14 @@ public class SpecialCard implements Card,Space {
     }
 
     @Override
-    public void onUse(String cardName) {
+    public void onUse() {
+        String cardName = (String) specialPB.next();
         cardMap.get(cardName).cardAction();
     }
 
     @Override
-    public void isOccupied(boolean occupied, int userId, int gameId, Connection connection) {
+    public void isOccupied(boolean occupied, int userId, int gameId, Connection connection)
+    {
+        onUse();
     }
 }
