@@ -12,7 +12,7 @@ class Special implements Space
     private void startSpace()
     {
             // put 300 dollars in the users account for landing directly on jail
-            System.out.println("You've received 300 dollars for passing START");
+            System.out.println("You've received 200 dollars for passing START");
     }
     private  void debtSpace()
     {
