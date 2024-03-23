@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootApplication
 @RestController
+@CrossOrigin
 public class DuopolyApplication {
 
 	Board gb = new Board();
@@ -51,6 +52,7 @@ public class DuopolyApplication {
 
 	}
 
+	// @CrossOrigin
 	@GetMapping("/getUserName/{userName}")
 	public AccountUtil getUserName(@PathVariable("userName") String userName) {
 		System.out.println(userName);
@@ -241,27 +243,50 @@ public class DuopolyApplication {
 	}
 
 // PlayerDAO stuff //
+	// @CrossOrigin
 	@GetMapping("/getPlayerInGame/{gameId}/{userId}")
-	public PlayerUtil getPlayerInGame(@PathVariable("gameId") int gameId,
-								  @PathVariable("userId") int userId) {
+		public PlayerUtil getPlayerInGame(@PathVariable("gameId") int gameId,
+									@PathVariable("userId") int userId) {
+			System.out.println(gameId);
+			DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
+					"duopoly", "postgres", "password");
+			PlayerUtil player1 = new PlayerUtil();
+			player1.setGameId(gameId);
+			player1.setUserId(userId);
+			try {
+				Connection connection = dcm.getConnection();
+				PlayerDAO playerDAO = new PlayerDAO(connection);
+
+				player1 = playerDAO.findById(player1);
+				System.out.println(player1);
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			return player1;
+		}
+	
+	@GetMapping("/getAllPlayersInGame/{gameId}")
+	public PlayerUtil[] getAllPlayersInGame(@PathVariable("gameId") int gameId) {
 		System.out.println(gameId);
 		DatabaseConnectionManager dcm = new DatabaseConnectionManager("db",
 				"duopoly", "postgres", "password");
 		PlayerUtil player1 = new PlayerUtil();
+		PlayerUtil[] players = new PlayerUtil[10];
 		player1.setGameId(gameId);
-		player1.setUserId(userId);
 		try {
 			Connection connection = dcm.getConnection();
 			PlayerDAO playerDAO = new PlayerDAO(connection);
 
-			player1 = playerDAO.findById(player1);
-			System.out.println(player1);
+			players = playerDAO.findByGameId(player1);
+			System.out.println(players);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return player1;
+		return players;
 	}
+
 
 	@PostMapping("/createPlayerInGame")
 	public PlayerUtil createPlayerInGame(@RequestBody String json) throws JsonProcessingException
@@ -442,6 +467,7 @@ public class DuopolyApplication {
 		return player1;
 	}
 
+	@CrossOrigin
 	@GetMapping("/createOwnedProperty")
 	public void createOwnedProperty(@RequestBody String json) throws JsonProcessingException
 	{
@@ -483,6 +509,9 @@ public class DuopolyApplication {
 			e.printStackTrace();
 		}
 	}
+
+
+// TO DO: get num_players from game -> pass num_players into allPlayersInGame
 
 
 //	@PostMapping("/updatePlayerTurn")
